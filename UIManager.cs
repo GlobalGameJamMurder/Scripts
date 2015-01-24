@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
+using System;
+
 public class UIManager : MonoBehaviour 
 {
     public Animator inventory;
@@ -11,6 +13,9 @@ public class UIManager : MonoBehaviour
     public Text messengerText;
     public Text timerText;
 	public Sprite sprite;
+
+	private bool execute;
+	private System.Action onClickAction;
 
     public List<ItemLookup.Item> m_itemList = new List<ItemLookup.Item>();
 
@@ -89,6 +94,23 @@ public class UIManager : MonoBehaviour
         messengerText.text = text;
     }
 
+	public void DisplayMessengerText(string text, System.Action onFinish)
+	{
+		messengerText.transform.parent.gameObject.SetActive(true);
+		messengerText.text = text;
+
+		onClickAction = onFinish;
+		execute = true;
+	}
+
+	public void OnDialogExit()
+	{
+		if (execute)
+		{
+			onClickAction();
+			execute = false;
+		}
+	}
     // Updates Timer on upper left quadrant
     public void UpdateTimer(int timeLeftInSeconds)
     {

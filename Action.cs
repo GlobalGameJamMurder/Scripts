@@ -60,7 +60,7 @@ public class Action : MonoBehaviour {
 			m_ActionCost = 0;
 			break;
 		}
-		m_Description += " Cost = " + m_ActionCost;
+		m_Description += "\nCost = " + m_ActionCost;
 
 		if(m_NameText != null)
 		{
