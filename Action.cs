@@ -46,7 +46,7 @@ public class Action : MonoBehaviour {
 			break;
 		case ActionController.ACTIONS.SAFECRACK:
 			m_Name = "Crack Safe";
-			m_Description = "Open the safe.";
+			m_Description = "Opens the safe.";
 			m_ActionCost = 5;
 			break;
 		case ActionController.ACTIONS.NONE:
@@ -56,6 +56,59 @@ public class Action : MonoBehaviour {
 			break;
 		}
 		m_Description += " Cost = " + m_ActionCost;
+	}
+
+	public void OnUse(GameObject useAgainst)
+	{
+		switch (m_ActionType)
+		{
+		case ActionController.ACTIONS.EXAMINE:
+			Examine(useAgainst);
+			break;
+		case ActionController.ACTIONS.LISTENDOOR:
+			Listen(useAgainst);
+			break;
+		case ActionController.ACTIONS.LISTENRADIUS:
+			Focus(useAgainst);
+			break;
+		case ActionController.ACTIONS.LOCKPICK:
+			Pick(useAgainst);
+			break;
+		case ActionController.ACTIONS.MOVE:
+			Move(useAgainst);
+			break;
+		case ActionController.ACTIONS.SAFECRACK:
+			SafeCrack(useAgainst);
+			break;
+		case ActionController.ACTIONS.NONE:
+			GameController.Instance.FireDialogue("Something Went Wrong in Action");
+			break;
+		}
+	}
+
+	void Examine(GameObject useAgainst)
+	{
+
+	}
+	void Listen(GameObject useAgainst)
+	{
+
+	}
+	void Focus (GameObject useAgainst)
+	{
+
+	}
+	void Pick(GameObject useAgainst)
+	{
+
+	}
+	void Move(GameObject useAgainst)
+	{
+
+	}
+	void SafeCrack(GameObject useAgainst)
+	{
+
 	}
 	
 	// Update is called once per frame
