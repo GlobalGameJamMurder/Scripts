@@ -12,7 +12,8 @@ public class GameController : MonoBehaviour {
 		ACTIONSELECT,
 		ACTIONUSE,
 		AITURN,
-		WAITING
+		WAITING,
+		NONE
 	}
 
 	public static GameController Instance
@@ -25,6 +26,20 @@ public class GameController : MonoBehaviour {
 		if(s_Instance == null)
 		{
 			s_Instance = this;
+		}
+	}
+
+	public void UseAction(ActionController.ACTIONS actionType, GameObject useOn)
+	{
+		switch(actionType)
+		{
+		case ActionController.ACTIONS.EXAMINE:
+		case ActionController.ACTIONS.LISTENDOOR:
+		case ActionController.ACTIONS.LISTENRADIUS:
+		case ActionController.ACTIONS.LOCKPICK:
+		case ActionController.ACTIONS.MOVE:
+		case ActionController.ACTIONS.NONE:
+			break;
 		}
 	}
 

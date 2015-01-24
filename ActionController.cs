@@ -47,16 +47,16 @@ public class ActionController : MonoBehaviour {
 			if(a.m_ActionType == requiredAction)
 			{
 				temp = a;
-				m_QueuedActions.Remove(a);
 				break;
 			}
 		}
 		return temp;
 	}
 
-	public void UseAction(Action action)
+	public void UseAction(Action action, GameObject useOn)
 	{
-
+		m_QueuedActions.Remove(action);
+		GameController.Instance.UseAction (action.m_ActionType, useOn);
 	}
 	// Update is called once per frame
 	IEnumerator ActionSelect () 
