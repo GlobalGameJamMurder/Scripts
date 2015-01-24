@@ -52,6 +52,7 @@ public class GameController : MonoBehaviour {
 
 	public void UseAction(ActionController.ACTIONS actionType, GameObject useOn)
 	{
+		Debug.Log("ACION");
 		if(m_CurrentState == GAMESTATE.ACTIONUSE)
 		{
 			switch(actionType)
@@ -61,6 +62,9 @@ public class GameController : MonoBehaviour {
 				case ActionController.ACTIONS.LISTENRADIUS:
 				case ActionController.ACTIONS.LOCKPICK:
 				case ActionController.ACTIONS.MOVE:
+				Debug.Log("ACION MOVE");
+					RoomManager.Instance.CurrentRoom.EnableDoors ();
+				break;
 				case ActionController.ACTIONS.SAFECRACK:
 				case ActionController.ACTIONS.NONE:
 					break;

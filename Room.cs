@@ -82,6 +82,8 @@ public class Room : MonoBehaviour
 			doorLeftTo.EnableDoors();
 			DisableDoors();
 				}
+
+		GameController.Instance.UseAction (ActionController.ACTIONS.MOVE,this.gameObject);
 	}
 
 	public void DoorRight()
@@ -93,7 +95,8 @@ public class Room : MonoBehaviour
 			doorRightTo.EnableDoors();
 			DisableDoors();
 				}
-		
+
+		GameController.Instance.UseAction (ActionController.ACTIONS.MOVE,this.gameObject);
 	}
 
 	public void DoorTop()
@@ -105,6 +108,8 @@ public class Room : MonoBehaviour
 			doorTopTo.EnableDoors();
 			DisableDoors();
 				}
+
+		GameController.Instance.UseAction (ActionController.ACTIONS.MOVE,this.gameObject);
 	}
 	
 	public void DoorBottom()
@@ -116,6 +121,8 @@ public class Room : MonoBehaviour
 			doorBottomTo.EnableDoors();
 			DisableDoors();
 				}
+
+		GameController.Instance.UseAction (ActionController.ACTIONS.MOVE,this.gameObject);
 	}
 
 	// Use this for initialization
