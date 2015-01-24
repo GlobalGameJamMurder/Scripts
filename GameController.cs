@@ -72,6 +72,29 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	public void UseActionClick(Action clickAction)
+	{
+		Debug.Log("ACION");
+		Action action = clickAction.GetComponent<Action> ();
+		//if(m_CurrentState == GAMESTATE.ACTIONUSE)
+		//{
+		switch(clickAction.m_ActionType)
+			{
+			case ActionController.ACTIONS.EXAMINE:
+			case ActionController.ACTIONS.LISTENDOOR:
+			case ActionController.ACTIONS.LISTENRADIUS:
+			case ActionController.ACTIONS.LOCKPICK:
+			case ActionController.ACTIONS.MOVE:
+				Debug.Log("ACION MOVE");
+				RoomManager.Instance.CurrentRoom.EnableDoors();
+				break;
+			case ActionController.ACTIONS.SAFECRACK:
+			case ActionController.ACTIONS.NONE:
+				break;
+			}
+		//}
+	}
+
 	public void SwitchState(GAMESTATE nextState)
 	{
 		m_CurrentState = nextState;
