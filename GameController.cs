@@ -73,9 +73,10 @@ public class GameController : MonoBehaviour {
 		m_CurrentState = nextState;
 	}
 
-	// Update is called once per frame
-	void Update () {
-	
+	public Room PlayerRoom()
+	{
+		//Player Room
+		return null;
 	}
 
 	public void FireDialogue(string text)

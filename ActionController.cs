@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
 
@@ -10,6 +11,7 @@ public class ActionController : MonoBehaviour {
 	public int m_CountdownTime = 20;
 
 	public List<Action> m_QueuedActions = new List<Action> ();
+	public Text m_DialogueBox;
 
 	public enum ACTIONS
 	{
@@ -27,12 +29,28 @@ public class ActionController : MonoBehaviour {
 		
 	}
 
+	public void ResetActions()
+	{
+		m_QueuedActions.Clear ();
+		m_CurrentActionPoints = m_ActionPointsPerTurn;
+		m_DialogueBox.text = "No Queued Actions";
+	}
+
 	public void AddAction (Action action)
 	{
 		if(action.m_ActionCost <= m_CurrentActionPoints)
 		{
 			m_QueuedActions.Add(action);
 			m_CurrentActionPoints -= action.m_ActionCost;
+
+			string actions = "";
+
+			foreach (Action a in m_QueuedActions)
+			{
+				actions += a.m_Title + "\n";
+			}
+
+			m_DialogueBox.text = "Queued Actions:\n" + actions + "\nRemaining Action Points: " + m_CurrentActionPoints;
 		}
 
 		else

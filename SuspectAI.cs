@@ -6,7 +6,7 @@ public class SuspectAI : MonoBehaviour {
 	Room m_CurrentRoom;
 	int m_Moves;
 
-	public void  SetMoves(int moves)
+	public void SetMoves(int moves)
 	{
 		m_Moves = moves;
 	}
@@ -26,6 +26,11 @@ public class SuspectAI : MonoBehaviour {
 			m_CurrentRoom = m_CurrentRoom.GetRandomRoom();
 			Debug.Log ("Moved to " + m_CurrentRoom.name);
 			++count;
+
+			if(m_CurrentRoom == GameController.Instance.PlayerRoom())
+			{
+
+			}
 		}
 	}
 
