@@ -122,6 +122,7 @@ public class Room : MonoBehaviour
 
 		if (RoomManager.Instance.CurrentRoom == this) {
 						EnableDoors ();
+            roomImage.overrideSprite = activeImage;
 				} else {
 			DisableDoors ();
 				}
