@@ -5,35 +5,75 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour 
 {
-    
+    public Animator inventory;
+    public Transform inventoryGridTransform;
     public Text evidenceCounterText;
     public Text messengerText;
     public Text timerText;
+	public Sprite sprite;
 
+    public List<ItemLookup.Item> m_itemList = new List<ItemLookup.Item>();
 
-
+    public List<GameObject> m_displayList = new List<GameObject>();
 
     void Start()
     {
 
+        // Fill a list with dummy tiles
+        for (int i = 0; i < 10; ++i)
+        {
+            GameObject tileObject = (GameObject)Instantiate(Resources.Load("BlankItemInfo"));
+            tileObject.transform.SetParent(inventoryGridTransform, false);
+            m_displayList.Add(tileObject);
+        }
 
+        // Debug
+        //AddToInventory(item);
 
         UpdateTimer(124);
     }
 
+    // Toggles the slide action for the inventory
     public void ToggleInventory()
     {
-        
+        inventory.SetBool("isVisible", !inventory.GetBool("isVisible"));
     }
 
+    // Adds an item to the inventory UI
     public void AddToInventory(ItemLookup.Item item)
     {
+        m_itemList.Add(item);
 
+        // If there are not enough objects in pool add another
+        if (m_itemList.IndexOf(item) > m_displayList.Count - 1)
+        {
+            GameObject newTile = (GameObject)Instantiate(Resources.Load("BlankItemInfo"));
+            newTile.SetActive(true);
+            newTile.transform.SetParent(inventoryGridTransform, false);
+
+
+            ItemUITile tile = newTile.GetComponent<ItemUITile>();
+            tile.text.text = item.m_Name;
+            tile.img.sprite = item.m_sprite;
+
+            m_displayList.Add(newTile);
+        }
+        else
+        {
+            ItemUITile tile = m_displayList[m_itemList.IndexOf(item)].GetComponent<ItemUITile>();
+            tile.text.text = item.m_Name;
+            tile.img.sprite = item.m_sprite;
+
+            tile.gameObject.SetActive(true);
+        }
     }
 
+    // Removes an item from the UI
     public void RemoveFromInventory(ItemLookup.Item item)
     {
-
+        int index = m_itemList.IndexOf(item);
+        m_itemList.Remove(item);
+        m_displayList[index].SetActive(false);
     }
 
     // Change evidence counter
@@ -49,6 +89,7 @@ public class UIManager : MonoBehaviour
         messengerText.text = text;
     }
 
+    // Updates Timer on upper left quadrant
     public void UpdateTimer(int timeLeftInSeconds)
     {
         int minutes = (int)timeLeftInSeconds / 60;
