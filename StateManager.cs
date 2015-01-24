@@ -9,6 +9,8 @@ public class StateManager : MonoBehaviour {
 
 	public Image blackScreen;
 
+	public GameObject[] m_ActionTriggerButtons;
+
 	public void SetState(int state)
 	{
 		switch ((GameController.GAMESTATE)state)
@@ -28,6 +30,7 @@ public class StateManager : MonoBehaviour {
 
 	IEnumerator SwitchScreen(GameObject activate, GameObject deactivate)
 	{
+		blackScreen.gameObject.SetActive (true);
 		Color color = blackScreen.color;
 		float endtime = Time.time + 0.5f;
 		while (Time.time < endtime)
@@ -40,6 +43,17 @@ public class StateManager : MonoBehaviour {
 		activate.SetActive (true);
 		deactivate.SetActive (false);
 		endtime = Time.time + 0.5f;
+
+		ActionController actionController = GameController.Instance.gameObject.GetComponent<ActionController>();
+		
+		for(int i = 0; i < actionController.m_QueuedActions.Count; i++)
+		{
+			m_ActionTriggerButtons[i].SetActive(true);
+			m_ActionTriggerButtons[i].GetComponent<Action>().SetAction(actionController.m_QueuedActions[i].m_ActionType);
+			m_ActionTriggerButtons[i].GetComponentInChildren<Text>().text = actionController.m_QueuedActions[i].m_Title;
+			//m_ActionTriggerButtons[i] = m_ActionTriggerButtons[i].GetComponent<Action>();
+		}
+
 		while (Time.time < endtime)
 		{
 			float s  = (endtime - Time.time)/0.5f;
@@ -47,6 +61,8 @@ public class StateManager : MonoBehaviour {
 			blackScreen.color = color;
 			yield return null;
 		}
+
+		blackScreen.gameObject.SetActive (false);
 	}
 
 	// Use this for initialization

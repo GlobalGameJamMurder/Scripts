@@ -107,6 +107,29 @@ public class ActionController : MonoBehaviour {
 	{
 		m_QueuedActions.Remove(action);
 		GameController.Instance.UseAction (action.m_ActionType, useOn);
+
+		int index = 0;
+		while (action != m_QueueButtons[index].GetComponent<Action>() && index-1 < m_QueuedActions.Count-1)
+		{
+			++index;
+		}
+		
+		int removalIndex = index;
+		int cost = action.m_ActionCost;
+		
+		if(index < m_QueuedActions.Count)
+		{
+			for(int i = index + 1 ; i < m_QueuedActions.Count ; ++i)
+			{
+				m_QueueButtons[index].GetComponent<Action>().SetAction(m_QueueButtons[i].GetComponent<Action>().m_ActionType);
+				++index;
+			}
+			m_QueueButtons[index].SetActive(false);
+			m_CurrentActionPoints += cost;
+			m_QueuedActions.RemoveAt(removalIndex);
+			m_DialogueBox.text = "Remaining Action Points: " + m_CurrentActionPoints;
+			
+		}
 	}
 	// Update is called once per frame
 	IEnumerator ActionSelect () 
