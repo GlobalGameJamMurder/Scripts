@@ -1,2 +1,0 @@
-# Scripts
-Read the name.
