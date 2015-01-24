@@ -22,7 +22,7 @@ public class Player : MonoBehaviour {
 		get {
 			if(m_Instance == null) 
 			{
-				m_Instance = FindObjectOfType<RoomManager>();
+				m_Instance = FindObjectOfType<Player>();
 			}
 			return m_Instance;
 		}
@@ -67,6 +67,7 @@ public class Player : MonoBehaviour {
 	{
 		//m_ActionCont.UseAction(GetAction(m_CurrentSelectedAction), m_CurrentSelectedObject);
 		m_CurrentSelectedAction = ActionController.ACTIONS.NONE;
+		return true;
 	}
 
 	//this funtion will be called by a object button call back

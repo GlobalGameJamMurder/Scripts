@@ -62,9 +62,13 @@ public class Action : MonoBehaviour {
 		}
 		m_Description += " Cost = " + m_ActionCost;
 
-		if(m_NameText != null && m_DescriptionText != null)
+		if(m_NameText != null)
 		{
 			m_NameText.text = m_Title;
+		}
+
+		if (m_DescriptionText != null)
+		{
 			m_DescriptionText.text = m_Description;
 		}
 	}
