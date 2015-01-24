@@ -133,6 +133,44 @@ public class Room : MonoBehaviour
 
 		roomTextRect = roomText.GetComponent<RectTransform> ();
 	}
+
+	public Room GetRandomRoom()
+	{
+		int count = 0;
+		while (count < 100)
+		{
+			int rand = Random.Range (0,4);
+			switch (rand)
+			{
+			case 0:
+				if(doorRightTo != null)
+				{
+					return doorRightTo;
+				}
+				break;
+			case 1:
+				if(doorLeftTo != null)
+				{
+					return doorLeftTo;
+				}
+				break;
+			case 2:
+				if(doorTopTo != null)
+				{
+					return doorTopTo;
+				}
+				break;
+			case 3:
+				if(doorBottomTo != null)
+				{
+					return doorBottomTo;
+				}
+				break;
+			}
+		}
+		Debug.LogError("Iterated 100 times, GetRandomRoom");
+		return this;
+	}
 	
 	// Update is called once per frame
 	void Update () {

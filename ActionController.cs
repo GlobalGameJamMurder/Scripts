@@ -63,7 +63,7 @@ public class ActionController : MonoBehaviour {
 	{
 		float endTime = Time.time + m_CountdownTime;
 		m_CurrentActionPoints = m_ActionPointsPerTurn;
-		while(Time.time < endTime)
+		while(Time.time < endTime && GameController.Instance.m_CurrentState == GameController.GAMESTATE.ACTIONSELECT)
 		{
 			//Wait For Choice To Be Made
 			yield return null;
@@ -75,6 +75,10 @@ public class ActionController : MonoBehaviour {
 
 	IEnumerator ActionUse()
 	{
-		yield return null;
+		float endTime = Time.time + GameController.Instance.GetWaitTime;
+		while (Time.time < endTime && GameController.Instance.m_CurrentState == GameController.GAMESTATE.ACTIONUSE)
+		{
+			yield return null;
+		}
 	}
 }
