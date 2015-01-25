@@ -6,7 +6,8 @@ using System.Collections.Generic;
 public class ObjectClass : MonoBehaviour {
 
 	public Button m_Button;
-	public List<ActionController.ACTIONS> m_PossibleActions;
+	public List<ActionController.ACTIONS> m_PossibleActions = new List<ActionController.ACTIONS> ();
+	public List<ItemInformation> m_Items = new List<ItemInformation> ();
 
 	// Use this for initialization
 	void Start () {
