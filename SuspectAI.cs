@@ -5,7 +5,7 @@ public class SuspectAI : MonoBehaviour {
 
 	public Room m_CurrentRoom;
 	private Room m_LastRoom;
-	int m_Moves = 1;
+	public int m_Moves = 1;
 
 	public void SetMoves(int moves)
 	{
@@ -26,10 +26,13 @@ public class SuspectAI : MonoBehaviour {
 			yield return new WaitForSeconds (1); //To make it more suspens-y
 			for (int i = 0 ; i < 10 ; ++i)
 			{
-				m_CurrentRoom = m_CurrentRoom.GetRandomRoom();
-				if(m_CurrentRoom != m_LastRoom)
+				Room newRoom = m_CurrentRoom.GetRandomRoom();
+
+				if(newRoom != m_LastRoom )
 				{
+
 					m_LastRoom = m_CurrentRoom;
+					m_CurrentRoom  = newRoom;
 					break;
 				}
 				if(i == 9)
@@ -56,5 +59,6 @@ public class SuspectAI : MonoBehaviour {
 	// Update is called once per frame
 	void Start () {
 		transform.position = m_CurrentRoom.transform.position;
+		m_LastRoom = m_CurrentRoom;
 	}
 }
