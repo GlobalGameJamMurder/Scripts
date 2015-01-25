@@ -17,6 +17,7 @@ public class Trash : ObjectClass {
 		m_PossibleItems.Add (7);
 		m_PossibleItems.Add (8);
 		m_PossibleItems.Add (9);
+		m_StartFinished = true;
 	}
 	
 	public override void Interact (ActionController.ACTIONS action) 
