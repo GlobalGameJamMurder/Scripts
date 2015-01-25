@@ -8,6 +8,7 @@ public class ObjectClass : MonoBehaviour {
 	public Button m_Button;
 	public List<ActionController.ACTIONS> m_PossibleActions = new List<ActionController.ACTIONS> ();
 	public List<int> m_Items = new List<int> ();
+	[System.NonSerialized]public List<int> m_PossibleItems = new List<int> ();//items that can be put in the object
 
 	// Use this for initialization
 	void Start () {

@@ -6,6 +6,11 @@ public class Fireplace : ObjectClass {
 		m_PossibleActions.Add (ActionController.ACTIONS.EXAMINE);
 		m_PossibleActions.Add (ActionController.ACTIONS.SAFECRACK);
 		m_PossibleActions.Add (ActionController.ACTIONS.LOCKPICK);
+
+		m_PossibleItems.Add (2);
+		m_PossibleItems.Add (6);
+		m_PossibleItems.Add (8);
+		m_PossibleItems.Add (9);
 	}
 	
 	public override void Interact (ActionController.ACTIONS action) 
@@ -13,7 +18,7 @@ public class Fireplace : ObjectClass {
 		switch(action)
 		{
 		case ActionController.ACTIONS.EXAMINE:
-			GameController.Instance.FireDialogue("This fire was lit recently. \nSomeone could have tried burning something.");
+			GameController.Instance.FireDialogueCallBack("This fire was lit recently. \nSomeone could have tried burning something.", CheckContents);
 			break;
 			
 			//if i find an item something new hey yoo la gorgeous bastard 101!!!!!!!

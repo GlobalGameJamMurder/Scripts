@@ -6,6 +6,12 @@ public class Plant : ObjectClass {
 		m_PossibleActions.Add (ActionController.ACTIONS.EXAMINE);
 		m_PossibleActions.Add (ActionController.ACTIONS.SAFECRACK);
 		m_PossibleActions.Add (ActionController.ACTIONS.LOCKPICK);
+
+		m_PossibleItems.Add (0);
+		m_PossibleItems.Add (2);
+		m_PossibleItems.Add (6);
+		m_PossibleItems.Add (8);
+		m_PossibleItems.Add (9);
 	}
 	
 	public override void Interact (ActionController.ACTIONS action) 
@@ -13,7 +19,7 @@ public class Plant : ObjectClass {
 		switch(action)
 		{
 		case ActionController.ACTIONS.EXAMINE:
-			GameController.Instance.FireDialogue("Guy must dig his plants. ");
+			GameController.Instance.FireDialogueCallBack("Guy must dig his plants. ", CheckContents);
 			break;
 			
 			//if i find an item something new hey yoo la gorgeous bastard 101!!!!!!!
