@@ -59,16 +59,16 @@ public class UIManager : MonoBehaviour
 
 
             ItemUITile tile = newTile.GetComponent<ItemUITile>();
-            tile.text.text = item.m_Name;
-            tile.img.sprite = item.m_sprite;
+            tile.text.text = item.Name;
+            tile.img.sprite = item.Sprite;
 
             m_displayList.Add(newTile);
         }
         else
         {
             ItemUITile tile = m_displayList[m_itemList.IndexOf(item)].GetComponent<ItemUITile>();
-            tile.text.text = item.m_Name;
-            tile.img.sprite = item.m_sprite;
+            tile.text.text = item.Name;
+            tile.img.sprite = item.Sprite;
 
             tile.gameObject.SetActive(true);
         }

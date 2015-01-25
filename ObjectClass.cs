@@ -7,7 +7,7 @@ public class ObjectClass : MonoBehaviour {
 
 	public Button m_Button;
 	public List<ActionController.ACTIONS> m_PossibleActions = new List<ActionController.ACTIONS> ();
-	public List<ItemInformation> m_Items = new List<ItemInformation> ();
+	public List<int> m_Items = new List<int> ();
 
 	// Use this for initialization
 	void Start () {
@@ -33,7 +33,14 @@ public class ObjectClass : MonoBehaviour {
 	{
 		if(m_Items.Count > 0)
 		{
+			ItemLookup.Item item = ItemLookup.Instance.GetItem(m_Items[0]);
+			item.InInventory = true;
 
+			GameController.Instance.GetComponent<UIManager>().AddToInventory(item);
+			GameController.Instance.FireDialogue(item.FindDescription);
+			m_Items.Remove(0);
+			return;
 		}
+		GameController.Instance.FireDialogue("...Nothing.");
 	}
 }

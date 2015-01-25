@@ -8,12 +8,24 @@ public class ItemLookup: MonoBehaviour {
 	}
 	[System.Serializable]
 	public class Item{
-		public Sprite m_sprite;
-		public string m_Name, m_FindDescription;
-		public bool m_OneUse;
+		[SerializeField]private Sprite m_sprite;
+		public Sprite Sprite{
+			get{return m_sprite;}
+		}
+		[SerializeField]private string m_Name;
+		[SerializeField]private string m_FindDescription;
+		public string Name{
+			get{return m_Name;}
+		}
+		public string FindDescription{
+			get{return m_FindDescription;}
+		}
 		[System.NonSerialized]
-		public bool m_InInventory = false;
-		//Description?
+		private bool m_InInventory = false;
+		public bool InInventory{
+			set{m_InInventory = value;}
+			get{return m_InInventory;}
+		}
 	}
 
 	[SerializeField]Item[] m_Items;

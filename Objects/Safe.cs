@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class Safe : ObjectClass {
-
+	[SerializeField]int SafeCodeID;
+	bool m_Locked = true;
 	// Use this for initialization
 	void Start () {
 		m_PossibleActions.Add (ActionController.ACTIONS.EXAMINE);
@@ -12,18 +13,46 @@ public class Safe : ObjectClass {
 	
 	public override void Interact (ActionController.ACTIONS action) 
 	{
-		switch(action)
+		if(m_Locked)
 		{
-		case ActionController.ACTIONS.EXAMINE:
-			GameController.Instance.FireDialogue("The safe is locked.\nIt looks too sturdy to break...");
-			break;
-		case ActionController.ACTIONS.SAFECRACK:
-			GameController.Instance.FireDialogue("After a lot of fiddling, the safe,\nsprings open...");
-			break;
-		case ActionController.ACTIONS.LOCKPICK:
-			GameController.Instance.FireDialogue("The lock pick is no use; this safe\nuses a combination to open...");
-			
-			break;
+			switch(action)
+			{
+					
+			case ActionController.ACTIONS.EXAMINE:
+				if(ItemLookup.Instance.GetItem(SafeCodeID).InInventory)
+				{
+					GameController.Instance.FireDialogueCallBack("After typing in the code, the safe opens.\nI wonder whats inside...", CheckContents);
+					m_Locked = false;
+				}
+				else
+					GameController.Instance.FireDialogue("The safe is locked.\nIt looks too sturdy to break...");
+				break;
+			case ActionController.ACTIONS.SAFECRACK:
+				GameController.Instance.FireDialogue("After a lot of fiddling, the safe,\nsprings open...");
+				m_Locked = false;
+				break;
+			case ActionController.ACTIONS.LOCKPICK:
+				GameController.Instance.FireDialogue("The lock pick is no use; this safe\nuses a combination to open...");
+				break;
+			}
+		}
+		else
+		{
+			switch(action)
+			{
+				
+			case ActionController.ACTIONS.EXAMINE:
+				GameController.Instance.FireDialogueCallBack("Its unlocked!.\n I wonder whats inside...", CheckContents);
+				break;
+			case ActionController.ACTIONS.SAFECRACK:
+				GameController.Instance.FireDialogue("Why am I doing this? \n I don't need to do this.");
+				m_Locked = false;
+				break;
+			case ActionController.ACTIONS.LOCKPICK:
+				GameController.Instance.FireDialogue("I don't need to do this.");
+				break;
+
+			}
 		}
 	}
 }
