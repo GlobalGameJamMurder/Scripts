@@ -34,7 +34,12 @@ public class ItemLookup: MonoBehaviour {
 	}
 	public Item GetItem(int ID)
 	{
-		return m_Items [ID];
+		if (ID > -1) {
+						return m_Items [ID];
+				}
+		else { 
+			return new Item();
+				}
 	}
 
 }

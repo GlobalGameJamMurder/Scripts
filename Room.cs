@@ -12,7 +12,6 @@ public class Door
 	public int doorKey = -1;
 }
 
-[ExecuteInEditMode]
 public class Room : MonoBehaviour 
 {
 	public Image roomImage;
@@ -68,7 +67,7 @@ public class Room : MonoBehaviour
 
 	public void EnableDoors()
 	{
-		if (BottomDoor1.doorKey == -1|| ItemLookup.Instance.GetItem(BottomDoor1.doorKey).m_InInventory) {
+		if (BottomDoor1.doorKey == -1|| ItemLookup.Instance.GetItem(BottomDoor1.doorKey).InInventory) {
 						BottomDoor1.door.enabled = true;
 			BottomDoor1.door.image.overrideSprite = doorImage;
 			BottomDoor1.door.image.SetNativeSize();
@@ -78,7 +77,7 @@ public class Room : MonoBehaviour
 			BottomDoor1.door.image.SetNativeSize();
 				}
 
-		if (BottomDoor2.doorKey == -1 || ItemLookup.Instance.GetItem(BottomDoor2.doorKey).m_InInventory) {
+		if (BottomDoor2.doorKey == -1 || ItemLookup.Instance.GetItem(BottomDoor2.doorKey).InInventory) {
 						BottomDoor2.door.enabled = true;
 			BottomDoor2.door.image.overrideSprite = doorImage;
 			BottomDoor2.door.image.SetNativeSize();
@@ -89,7 +88,7 @@ public class Room : MonoBehaviour
 			BottomDoor2.door.image.SetNativeSize();
 		}
 
-		if (TopDoor1.doorKey == -1 || ItemLookup.Instance.GetItem(TopDoor1.doorKey).m_InInventory) {
+		if (TopDoor1.doorKey == -1 || ItemLookup.Instance.GetItem(TopDoor1.doorKey).InInventory) {
 						TopDoor1.door.enabled = true;
 			TopDoor1.door.image.overrideSprite = doorImage;
 			TopDoor1.door.image.SetNativeSize();
@@ -100,7 +99,7 @@ public class Room : MonoBehaviour
 			TopDoor1.door.image.SetNativeSize();
 		}
 
-		if (TopDoor2.doorKey == -1 || ItemLookup.Instance.GetItem(TopDoor2.doorKey).m_InInventory) {
+		if (TopDoor2.doorKey == -1 || ItemLookup.Instance.GetItem(TopDoor2.doorKey).InInventory) {
 						TopDoor2.door.enabled = true;
 			TopDoor2.door.image.overrideSprite = doorImage;
 			TopDoor2.door.image.SetNativeSize();
@@ -111,7 +110,7 @@ public class Room : MonoBehaviour
 			TopDoor2.door.image.SetNativeSize();
 		}
 
-		if (LeftDoor1.doorKey == -1 || ItemLookup.Instance.GetItem(LeftDoor1.doorKey).m_InInventory) {
+		if (LeftDoor1.doorKey == -1 || ItemLookup.Instance.GetItem(LeftDoor1.doorKey).InInventory) {
 						LeftDoor1.door.enabled = true;
 			LeftDoor1.door.image.overrideSprite = doorImage;
 			LeftDoor1.door.image.SetNativeSize();
@@ -121,7 +120,7 @@ public class Room : MonoBehaviour
 			LeftDoor1.door.image.SetNativeSize();
 		}
 		
-		if (LeftDoor2.doorKey == -1 || ItemLookup.Instance.GetItem(LeftDoor2.doorKey).m_InInventory) {
+		if (LeftDoor2.doorKey == -1 || ItemLookup.Instance.GetItem(LeftDoor2.doorKey).InInventory) {
 						LeftDoor2.door.enabled = true;
 			LeftDoor2.door.image.overrideSprite = doorImage;
 			LeftDoor2.door.image.SetNativeSize();
@@ -131,7 +130,7 @@ public class Room : MonoBehaviour
 			LeftDoor2.door.image.SetNativeSize();
 		}
 
-		if (RightDoor1.doorKey == -1 || ItemLookup.Instance.GetItem(RightDoor1.doorKey).m_InInventory) {
+		if (RightDoor1.doorKey == -1 || ItemLookup.Instance.GetItem(RightDoor1.doorKey).InInventory) {
 						RightDoor1.door.enabled = true;
 			RightDoor1.door.image.overrideSprite = doorImage;
 			RightDoor1.door.image.SetNativeSize();
@@ -141,7 +140,7 @@ public class Room : MonoBehaviour
 			RightDoor2.door.image.SetNativeSize();
 		}
 
-		if (RightDoor2.doorKey == -1 || ItemLookup.Instance.GetItem(RightDoor2.doorKey).m_InInventory) {
+		if (RightDoor2.doorKey == -1 || ItemLookup.Instance.GetItem(RightDoor2.doorKey).InInventory) {
 						RightDoor2.door.enabled = true;
 			RightDoor2.door.image.overrideSprite = doorImage;
 			RightDoor2.door.image.SetNativeSize();
