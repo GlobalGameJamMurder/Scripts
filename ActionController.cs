@@ -131,20 +131,7 @@ public class ActionController : MonoBehaviour {
 			
 		}
 	}
-	// Update is called once per frame
-	IEnumerator ActionSelect () 
-	{
-		float endTime = Time.time + m_CountdownTime;
-		m_CurrentActionPoints = m_ActionPointsPerTurn;
-		while(Time.time < endTime && GameController.Instance.m_CurrentState == GameController.GAMESTATE.ACTIONSELECT)
-		{
-			//Wait For Choice To Be Made
-			yield return null;
-		}
-		GameController.Instance.SwitchState (GameController.GAMESTATE.ACTIONUSE);
-		StartCoroutine (ActionUse ());
 
-	}
 
 	IEnumerator ActionUse()
 	{

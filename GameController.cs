@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class GameController : MonoBehaviour {
@@ -8,6 +9,9 @@ public class GameController : MonoBehaviour {
 	//public int m_UseItemCountDown;
 
 	public static GameController s_Instance;
+
+	public SuspectAI m_AIController;
+	private StateManager m_StateManager;
 
 	public GAMESTATE m_CurrentState;
 
@@ -32,6 +36,13 @@ public class GameController : MonoBehaviour {
 			s_Instance = this;
 		}
 
+		m_StateManager = GetComponent<StateManager>();
+		GetComponent<UIManager> ().DisplayMessengerText ("Incoming Info,\nAre You Ready?", StartFlash );
+	}
+
+	public void StartWaiting()
+	{
+		m_StateManager.SetState ((int)GAMESTATE.WAITING);
 		GetComponent<UIManager> ().DisplayMessengerText ("Incoming Info,\nAre You Ready?", StartFlash );
 	}
 
@@ -42,11 +53,80 @@ public class GameController : MonoBehaviour {
 
 	private IEnumerator Flash()
 	{
-		GetComponent<StateManager> ().blackScreen.gameObject.SetActive (true);
-		GetComponent<StateManager> ().SetState (1);
-		yield return new WaitForSeconds (1.5f);
-		GetComponent<StateManager> ().SetState (0);
-		GetComponent<StateManager> ().blackScreen.gameObject.SetActive (false);
+		Image blackScreen = m_StateManager.blackScreen;
+		blackScreen.gameObject.SetActive (true);
+		Color color = blackScreen.color;
+		float endtime = Time.time + 0.1f;
+		while (Time.time < endtime)
+		{
+			float s  = (endtime - Time.time)/0.1f;
+			color.a = 1-s;
+			blackScreen.color = color;
+			yield return null;
+		}
+		
+		m_StateManager.m_GameScreen.SetActive (true);
+
+		endtime = Time.time + 0.1f;
+		while (Time.time < endtime)
+		{
+			float s  = (endtime - Time.time)/0.1f;
+			color.a = s;
+			blackScreen.color = color;
+			yield return null;
+		}
+		
+		yield return new WaitForSeconds (1f);
+
+		endtime = Time.time + 0.2f;
+		while (Time.time < endtime)
+		{
+			float s  = (endtime - Time.time)/0.2f;
+			color.a = 1-s;
+			blackScreen.color = color;
+			yield return null;
+		}
+
+		m_StateManager.m_GameScreen.SetActive (false);
+		m_StateManager.m_AbilitySelectScreen.SetActive (true);
+		
+		while (Time.time < endtime)
+		{
+			float s  = (endtime - Time.time)/0.5f;
+			color.a = s;
+			blackScreen.color = color;
+			yield return null;
+		}
+
+		blackScreen.gameObject.SetActive (false);
+		GetComponent<UIManager> ().ShowTimer (true);
+		Timer.Instance.StartTimer (m_ChooseActionCountDown, LaunchGameState, SetUITimer);
+	}
+
+	public void LaunchGameState()
+	{
+		if (m_CurrentState != GAMESTATE.ACTIONUSE)
+		{
+			m_StateManager.SetState((int)GAMESTATE.ACTIONUSE);
+			Timer.Instance.StartTimer (m_UseActionCountDown, LaunchAIState, SetUITimer);	
+		}
+
+	}
+
+	public void LaunchAIState()
+	{
+
+		m_StateManager.SetState ((int)GAMESTATE.AITURN);
+		m_AIController.TakeTurn ();
+		
+	}
+
+	public bool SetUITimer(float timeRemaining, GAMESTATE state)
+	{
+		GetComponent<UIManager> ().UpdateTimer ((int)timeRemaining);
+		if(m_CurrentState != state)
+			return false;
+		return true;
 	}
 
 	public int GetWaitTime
@@ -111,10 +191,7 @@ public class GameController : MonoBehaviour {
 		//}
 	}
 
-	public void SwitchState(GAMESTATE nextState)
-	{
-		m_CurrentState = nextState;
-	}
+
 
 	public Room PlayerRoom()
 	{
