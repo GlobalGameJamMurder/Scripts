@@ -11,7 +11,6 @@ public class ItemLookup: MonoBehaviour {
 		public Sprite m_sprite;
 		public string m_Name, m_FindDescription;
 		public bool m_OneUse;
-		[System.NonSerialized]
 		public bool m_InInventory = false;
 		//Description?
 	}
@@ -22,7 +21,11 @@ public class ItemLookup: MonoBehaviour {
 	}
 	public Item GetItem(int ID)
 	{
-		return m_Items [ID];
+		if (ID > -1) {
+						return m_Items [ID];
+				}
+
+		return new Item();
 	}
 
 }

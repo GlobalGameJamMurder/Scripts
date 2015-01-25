@@ -9,7 +9,7 @@ public class Door
 	public int doorModifier;
 	public bool doorUse;
 	public Room doorTo;
- 
+	public int doorKey = -1;
 }
 
 [ExecuteInEditMode]
@@ -18,14 +18,14 @@ public class Room : MonoBehaviour
 	public Image roomImage;
 	public Image roomBorderImage;
 
-	[SerializeField] private Door BottomDoor1;
-	[SerializeField] private Door BottomDoor2;
-	[SerializeField] private Door TopDoor1;
-	[SerializeField] private Door TopDoor2;
-	[SerializeField] private Door LeftDoor1;
-	[SerializeField] private Door LeftDoor2;
-	[SerializeField] private Door RightDoor1;
-	[SerializeField] private Door RightDoor2;
+	[SerializeField] public Door BottomDoor1;
+	[SerializeField] public Door BottomDoor2;
+	[SerializeField] public Door TopDoor1;
+	[SerializeField] public Door TopDoor2;
+	[SerializeField] public Door LeftDoor1;
+	[SerializeField] public Door LeftDoor2;
+	[SerializeField] public Door RightDoor1;
+	[SerializeField] public Door RightDoor2;
 
 	public int roomSizeX = 100;
 	public int roomSizeY = 100;
@@ -63,36 +63,138 @@ public class Room : MonoBehaviour
 
 	public Sprite activeImage;
 	public Sprite inactiveImage;
+	public Sprite doorImage;
+	public Sprite lockImage;
 
 	public void EnableDoors()
 	{
-		BottomDoor1.door.enabled = true;
-		BottomDoor2.door.enabled = true;
-		TopDoor1.door.enabled = true;
-		TopDoor2.door.enabled = true;
-		LeftDoor1.door.enabled = true;
-		LeftDoor2.door.enabled = true;
-		RightDoor1.door.enabled = true;
-		RightDoor2.door.enabled = true;
+		if (BottomDoor1.doorKey == -1|| ItemLookup.Instance.GetItem(BottomDoor1.doorKey).m_InInventory) {
+						BottomDoor1.door.enabled = true;
+			BottomDoor1.door.image.overrideSprite = doorImage;
+			BottomDoor1.door.image.SetNativeSize();
+				} else {
+			BottomDoor1.door.enabled = false;
+			BottomDoor1.door.image.overrideSprite = lockImage;
+			BottomDoor1.door.image.SetNativeSize();
+				}
+
+		if (BottomDoor2.doorKey == -1 || ItemLookup.Instance.GetItem(BottomDoor2.doorKey).m_InInventory) {
+						BottomDoor2.door.enabled = true;
+			BottomDoor2.door.image.overrideSprite = doorImage;
+			BottomDoor2.door.image.SetNativeSize();
+				}
+		else {
+			BottomDoor2.door.enabled = false;
+			BottomDoor2.door.image.overrideSprite = lockImage;
+			BottomDoor2.door.image.SetNativeSize();
+		}
+
+		if (TopDoor1.doorKey == -1 || ItemLookup.Instance.GetItem(TopDoor1.doorKey).m_InInventory) {
+						TopDoor1.door.enabled = true;
+			TopDoor1.door.image.overrideSprite = doorImage;
+			TopDoor1.door.image.SetNativeSize();
+				}
+		else {
+			TopDoor1.door.enabled = false;
+			TopDoor1.door.image.overrideSprite = lockImage;
+			TopDoor1.door.image.SetNativeSize();
+		}
+
+		if (TopDoor2.doorKey == -1 || ItemLookup.Instance.GetItem(TopDoor2.doorKey).m_InInventory) {
+						TopDoor2.door.enabled = true;
+			TopDoor2.door.image.overrideSprite = doorImage;
+			TopDoor2.door.image.SetNativeSize();
+				}
+		else {
+			TopDoor2.door.enabled = false;
+			TopDoor2.door.image.overrideSprite = lockImage;
+			TopDoor2.door.image.SetNativeSize();
+		}
+
+		if (LeftDoor1.doorKey == -1 || ItemLookup.Instance.GetItem(LeftDoor1.doorKey).m_InInventory) {
+						LeftDoor1.door.enabled = true;
+			LeftDoor1.door.image.overrideSprite = doorImage;
+			LeftDoor1.door.image.SetNativeSize();
+		}else {
+			LeftDoor1.door.enabled = false;
+			LeftDoor1.door.image.overrideSprite = lockImage;
+			LeftDoor1.door.image.SetNativeSize();
+		}
+		
+		if (LeftDoor2.doorKey == -1 || ItemLookup.Instance.GetItem(LeftDoor2.doorKey).m_InInventory) {
+						LeftDoor2.door.enabled = true;
+			LeftDoor2.door.image.overrideSprite = doorImage;
+			LeftDoor2.door.image.SetNativeSize();
+		}else {
+			LeftDoor2.door.enabled = false;
+			LeftDoor2.door.image.overrideSprite = lockImage;
+			LeftDoor2.door.image.SetNativeSize();
+		}
+
+		if (RightDoor1.doorKey == -1 || ItemLookup.Instance.GetItem(RightDoor1.doorKey).m_InInventory) {
+						RightDoor1.door.enabled = true;
+			RightDoor1.door.image.overrideSprite = doorImage;
+			RightDoor1.door.image.SetNativeSize();
+		}else {
+			RightDoor1.door.enabled = false;
+			RightDoor1.door.image.overrideSprite = lockImage;
+			RightDoor2.door.image.SetNativeSize();
+		}
+
+		if (RightDoor2.doorKey == -1 || ItemLookup.Instance.GetItem(RightDoor2.doorKey).m_InInventory) {
+						RightDoor2.door.enabled = true;
+			RightDoor2.door.image.overrideSprite = doorImage;
+			RightDoor2.door.image.SetNativeSize();
+		}else {
+			RightDoor2.door.enabled = false;
+			RightDoor2.door.image.overrideSprite = lockImage;
+			RightDoor2.door.image.SetNativeSize();
+		}
 	}
 
 	public void DisableDoors()
 	{
 		BottomDoor1.door.enabled = false;
+		BottomDoor1.door.image.overrideSprite = doorImage;
+		BottomDoor1.door.image.SetNativeSize();
+
 		BottomDoor2.door.enabled = false;
+		BottomDoor2.door.image.overrideSprite = doorImage;
+		BottomDoor2.door.image.SetNativeSize();
+
 		TopDoor1.door.enabled = false;
+		TopDoor1.door.image.overrideSprite = doorImage;
+		TopDoor1.door.image.SetNativeSize();
+
 		TopDoor2.door.enabled = false;
+		TopDoor2.door.image.overrideSprite = doorImage;
+		TopDoor2.door.image.SetNativeSize();
+
 		LeftDoor1.door.enabled = false;
+		LeftDoor1.door.image.overrideSprite = doorImage;
+		LeftDoor1.door.image.SetNativeSize();
+
 		LeftDoor2.door.enabled = false;
+		LeftDoor2.door.image.overrideSprite = doorImage;
+		LeftDoor2.door.image.SetNativeSize();
+
 		RightDoor1.door.enabled = false;
+		RightDoor1.door.image.overrideSprite = doorImage;
+		RightDoor1.door.image.SetNativeSize();
+
 		RightDoor2.door.enabled = false;
+		RightDoor2.door.image.overrideSprite = doorImage;
+		RightDoor2.door.image.SetNativeSize();
 	}
 
 	public void DoorLeft1()
 	{
 		if (LeftDoor1.doorTo != null) {
-			roomImage.overrideSprite = inactiveImage;
-			LeftDoor1.doorTo.roomImage.overrideSprite = activeImage;
+			if(Player.m_CurrentSelectedAction.m_ActionType == ActionController.ACTIONS.MOVE)
+			{
+				roomImage.overrideSprite = inactiveImage;
+				LeftDoor1.doorTo.roomImage.overrideSprite = activeImage;
+			}
 			Player.Instance.UseAction(LeftDoor1.doorTo);
 			DisableDoors();
 		}
@@ -101,8 +203,11 @@ public class Room : MonoBehaviour
 	public void DoorLeft2()
 	{
 		if (LeftDoor2.doorTo != null) {
+			if(Player.m_CurrentSelectedAction.m_ActionType == ActionController.ACTIONS.MOVE)
+			{
 			roomImage.overrideSprite = inactiveImage;
 			LeftDoor2.doorTo.roomImage.overrideSprite = activeImage;
+			}
 			Player.Instance.UseAction(LeftDoor2.doorTo);
 			DisableDoors();
 		}
@@ -113,8 +218,11 @@ public class Room : MonoBehaviour
 	public void DoorRight1()
 	{
 		if (RightDoor1.doorTo != null) {
+			if(Player.m_CurrentSelectedAction.m_ActionType == ActionController.ACTIONS.MOVE)
+				{
 			roomImage.overrideSprite = inactiveImage;
 			RightDoor1.doorTo.roomImage.overrideSprite = activeImage;
+				}
 			Player.Instance.UseAction(RightDoor1.doorTo );
 			DisableDoors();
 		}
@@ -123,8 +231,11 @@ public class Room : MonoBehaviour
 	public void DoorRight2()
 	{
 		if (RightDoor2.doorTo != null) {
+			if(Player.m_CurrentSelectedAction.m_ActionType == ActionController.ACTIONS.MOVE)
+					{
 			roomImage.overrideSprite = inactiveImage;
 			RightDoor2.doorTo.roomImage.overrideSprite = activeImage;
+					}
 			Player.Instance.UseAction(RightDoor2.doorTo);
 			DisableDoors();
 		}
@@ -134,8 +245,11 @@ public class Room : MonoBehaviour
 	public void DoorTop1()
 	{
 		if (TopDoor1.doorTo != null) {
+			if(Player.m_CurrentSelectedAction.m_ActionType == ActionController.ACTIONS.MOVE)
+						{
 			roomImage.overrideSprite = inactiveImage;
 			TopDoor1.doorTo.roomImage.overrideSprite = activeImage;
+						}
 			Player.Instance.UseAction(TopDoor1.doorTo );
 			DisableDoors();
 		}
@@ -144,8 +258,11 @@ public class Room : MonoBehaviour
 	public void DoorTop2()
 	{
 		if (TopDoor2.doorTo != null) {
+							if(Player.m_CurrentSelectedAction.m_ActionType == ActionController.ACTIONS.MOVE)
+							{
 			roomImage.overrideSprite = inactiveImage;
 			TopDoor2.doorTo.roomImage.overrideSprite = activeImage;
+							}
 			Player.Instance.UseAction(TopDoor2.doorTo);
 			DisableDoors();
 		}
@@ -154,8 +271,11 @@ public class Room : MonoBehaviour
 	public void DoorBottom2()
 	{
 		if (BottomDoor2.doorTo != null) {
+			if(Player.m_CurrentSelectedAction.m_ActionType == ActionController.ACTIONS.MOVE)
+								{
 			roomImage.overrideSprite = inactiveImage;
 			BottomDoor2.doorTo.roomImage.overrideSprite = activeImage;
+								}
 			Player.Instance.UseAction(BottomDoor2.doorTo );
 			DisableDoors();
 		}
@@ -164,8 +284,11 @@ public class Room : MonoBehaviour
 	public void DoorBottom1()
 	{
 		if (BottomDoor1.doorTo != null) {
+			if(Player.m_CurrentSelectedAction.m_ActionType == ActionController.ACTIONS.MOVE)
+									{
 			roomImage.overrideSprite = inactiveImage;
 			BottomDoor1.doorTo.roomImage.overrideSprite = activeImage;
+									}
 			Player.Instance.UseAction(BottomDoor1.doorTo );
 			DisableDoors();
 			}

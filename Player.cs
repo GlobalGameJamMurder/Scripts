@@ -72,6 +72,14 @@ public class Player : MonoBehaviour {
 		{
 			m_CurrentRoom.EnableDoors();
 		}
+		else if(action.m_ActionType == ActionController.ACTIONS.LISTENDOOR)
+		{
+			m_CurrentRoom.EnableDoors();
+		}
+		else if(action.m_ActionType == ActionController.ACTIONS.LOCKPICK)
+		{
+			Player.Instance.UseAction(Player.Instance.m_CurrentRoom);
+		}
 		else 
 		{
 			m_CurrentRoom.DisableDoors();
@@ -119,6 +127,59 @@ public class Player : MonoBehaviour {
 			m_CurrentRoom.DisableDoors();
 			CheckActions();
 
+			if(GameController.Instance.m_AIController.m_CurrentRoom == Player.Instance.m_CurrentRoom)
+			{
+				GameController.Instance.m_StateManager.StartFade(GameOver, true);
+				
+			}
+			return true;
+		}
+		else if(m_CurrentSelectedAction != null && m_CurrentSelectedAction.m_ActionType == ActionController.ACTIONS.LISTENDOOR)
+		{
+			m_ActionCont.RemoveItemActions (m_CurrentSelectedAction);
+			m_CurrentSelectedAction = null;
+			if(obj == GameController.Instance.m_AIController.m_CurrentRoom)
+			{
+				GameController.Instance.FireDialogue("You hear a sound on the other side of the dooor!!");
+			}
+			else
+			{
+				GameController.Instance.FireDialogue("All is quite on the other side of the door.");
+			}
+
+			m_CurrentRoom.DisableDoors();
+			CheckActions();
+			
+			if(GameController.Instance.m_AIController.m_CurrentRoom == Player.Instance.m_CurrentRoom)
+			{
+				GameController.Instance.m_StateManager.StartFade(GameOver, true);
+				
+			}
+			return true;
+		}
+		else if(m_CurrentSelectedAction != null && m_CurrentSelectedAction.m_ActionType == ActionController.ACTIONS.LOCKPICK)
+		{
+			m_ActionCont.RemoveItemActions (m_CurrentSelectedAction);
+			m_CurrentSelectedAction = null;
+			if(obj.LeftDoor2.doorKey == 8 )
+			{
+				obj.LeftDoor2.doorKey = -1;
+				GameController.Instance.FireDialogue("You lock pick the door!");
+			}
+			else
+			if(obj.TopDoor1.doorKey == 9 )
+			{
+				obj.TopDoor1.doorKey = -1;
+				GameController.Instance.FireDialogue("You lock pick the door!");
+			}
+			else
+			{
+				GameController.Instance.FireDialogue("No door to lock pick.");
+			}
+			
+			m_CurrentRoom.DisableDoors();
+			CheckActions();
+			
 			if(GameController.Instance.m_AIController.m_CurrentRoom == Player.Instance.m_CurrentRoom)
 			{
 				GameController.Instance.m_StateManager.StartFade(GameOver, true);
