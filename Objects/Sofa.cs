@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Sofa : ObjectClass {
 
-	void Start () {
+	protected override void Initialise(){
 		m_PossibleActions.Add (ActionController.ACTIONS.EXAMINE);
 		m_PossibleActions.Add (ActionController.ACTIONS.SAFECRACK);
 		m_PossibleActions.Add (ActionController.ACTIONS.LOCKPICK);
@@ -18,7 +18,6 @@ public class Sofa : ObjectClass {
 		m_PossibleItems.Add (7);
 		m_PossibleItems.Add (8);
 		m_PossibleItems.Add (9);
-		m_StartFinished = true;
 	}
 
 	public override void Interact (ActionController.ACTIONS action) 
@@ -26,7 +25,7 @@ public class Sofa : ObjectClass {
 		switch(action)
 		{
 		case ActionController.ACTIONS.EXAMINE:
-			GameController.Instance.FireDialogueCallBack("The sofa looks cumfy.\n I found nothing useful...", CheckContents);
+			GameController.Instance.FireDialogueCallBack("The sofa looks compfy.", CheckContents);
 			break;
 
 			//if i find an item something new hey yoo la gorgeous bastard 101!!!!!!!

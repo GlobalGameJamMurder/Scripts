@@ -9,14 +9,18 @@ public class ObjectClass : MonoBehaviour {
 	public List<ActionController.ACTIONS> m_PossibleActions = new List<ActionController.ACTIONS> ();
 	public List<int> m_Items = new List<int> ();
 	private static List<int> m_NonAllocatedItems = new List<int> () {0,1,2,3,4,5,6,7,8,9};
-	protected bool m_StartFinished = false;
 	[System.NonSerialized]public List<int> m_PossibleItems = new List<int> ();//items that can be put in the object
 
 	// Use this for initialization
-	void Awake () {
+	void Start () {
 		m_Button.onClick.AddListener(() => { OnClick(); });
+		Initialise ();
 		StartCoroutine (LateStart ());
 	}	
+
+	protected virtual void Initialise()
+	{}
+
 	void OnDestroy()
 	{
 		m_Button.onClick.RemoveAllListeners();
@@ -66,7 +70,11 @@ public class ObjectClass : MonoBehaviour {
 
 			GameController.Instance.GetComponent<UIManager>().AddToInventory(item);
 			GameController.Instance.FireDialogue(item.FindDescription);
-			m_Items.Remove(0);
+			m_Items.Remove(m_Items[0]);
+			if(item.IsEvidence)
+			{
+				GameController.Instance.GetComponent<UIManager>().IncrementEvidenceCounter();
+			}
 			return;
 		}
 		GameController.Instance.FireDialogue("...Nothing.");

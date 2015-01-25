@@ -20,6 +20,10 @@ public class ItemLookup: MonoBehaviour {
 		public string FindDescription{
 			get{return m_FindDescription;}
 		}
+		[SerializeField]private bool m_IsEvidence;
+		public bool IsEvidence{
+			get{return m_IsEvidence;}
+		}
 		[System.NonSerialized]
 		private bool m_InInventory = false;
 		public bool InInventory{

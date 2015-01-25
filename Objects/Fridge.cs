@@ -2,7 +2,7 @@
 using System.Collections;
 public class Fridge : ObjectClass {
 	
-	void Start () {
+	protected override void Initialise(){
 		m_PossibleActions.Add (ActionController.ACTIONS.EXAMINE);
 		m_PossibleActions.Add (ActionController.ACTIONS.SAFECRACK);
 		m_PossibleActions.Add (ActionController.ACTIONS.LOCKPICK);
@@ -17,7 +17,6 @@ public class Fridge : ObjectClass {
 		m_PossibleItems.Add (7);
 		m_PossibleItems.Add (8);
 		m_PossibleItems.Add (9);
-		m_StartFinished = true;
 	}
 	
 	public override void Interact (ActionController.ACTIONS action) 

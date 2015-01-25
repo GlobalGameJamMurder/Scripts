@@ -17,9 +17,15 @@ public class UIManager : MonoBehaviour
 	private bool execute;
 	private System.Action onClickAction;
 
-    public List<ItemLookup.Item> m_itemList = new List<ItemLookup.Item>();
+    private List<ItemLookup.Item> m_itemList = new List<ItemLookup.Item>();
 
-    public List<GameObject> m_displayList = new List<GameObject>();
+    private List<GameObject> m_displayList = new List<GameObject>();
+
+	private int m_evidenceCount = 0;
+
+	public int EvidenceCount{
+		get{return m_evidenceCount;}
+	}
 
     void Start()
     {
@@ -83,9 +89,10 @@ public class UIManager : MonoBehaviour
     }
 
     // Change evidence counter
-    public void EvidenceCounter(int counter)
+    public void IncrementEvidenceCounter()
     {
-        evidenceCounterText.text = counter + "/3";
+		m_evidenceCount++;
+		evidenceCounterText.text = m_evidenceCount + "/3";
     }
 
     // Receives and outputs string to message box
