@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
-public class Drawer : ObjectClass {
+public class Clock : ObjectClass {
 	
 	void Start () {
 		m_PossibleActions.Add (ActionController.ACTIONS.EXAMINE);
@@ -25,16 +24,16 @@ public class Drawer : ObjectClass {
 		switch(action)
 		{
 		case ActionController.ACTIONS.EXAMINE:
-			GameController.Instance.FireDialogueCallBack("An old stylish drawer.\n Perfect for storing items.", CheckContents);
+			GameController.Instance.FireDialogueCallBack("They don't make them like these anymore. \nNever know what could be inside a clock. ", CheckContents);
 			break;
 			
 			//if i find an item something new hey yoo la gorgeous bastard 101!!!!!!!
 			
 		case ActionController.ACTIONS.SAFECRACK:
-			GameController.Instance.FireDialogue("I can only use this on a safe.\n I wonder if there's one around here.");
+			GameController.Instance.FireDialogue("I can only use this on a safe.\n I wonder if there's one around here");
 			break;
 		case ActionController.ACTIONS.LOCKPICK:
-			GameController.Instance.FireDialogue("These drawers have no locks.");
+			GameController.Instance.FireDialogue("I can't use this here.");
 			
 			break;
 		}
