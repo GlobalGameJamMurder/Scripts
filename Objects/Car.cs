@@ -22,7 +22,7 @@ public class Car : ObjectClass {
 			GameController.Instance.FireDialogue("If only the car had dials.\n The safecrack is no use here...");
 			break;
 		case ActionController.ACTIONS.LOCKPICK:
-			GameController.Instance.FireDialogue("The lock pick is no use; this safe\nuses a combination to open...");
+		GameController.Instance.FireDialogue("That's no good without Petrol...");
 			
 			break;
 		}

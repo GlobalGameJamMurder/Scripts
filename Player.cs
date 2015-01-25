@@ -5,6 +5,7 @@ using System.Collections;
 public class Player : MonoBehaviour {
 
 	[SerializeField]ActionController m_ActionCont;
+	[SerializeField]Image m_PlayerIcon;
 	public Room m_CurrentRoom; //Serializable so the start room can be set
 	private static Player m_Instance = null;
 	public static Action m_CurrentSelectedAction = null;
@@ -17,6 +18,8 @@ public class Player : MonoBehaviour {
 		{
 			m_Instance = this;
 		}
+		m_PlayerIcon.transform.position = m_CurrentRoom.transform.position;
+		
 		
 	}
 	
@@ -124,6 +127,7 @@ public class Player : MonoBehaviour {
 			m_ActionCont.RemoveItemActions (m_CurrentSelectedAction);
 			m_CurrentSelectedAction = null;
 			m_CurrentRoom = obj;
+			m_PlayerIcon.transform.position = obj.transform.position;
 			m_CurrentRoom.DisableDoors();
 			CheckActions();
 

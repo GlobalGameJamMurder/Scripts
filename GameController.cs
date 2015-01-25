@@ -42,6 +42,10 @@ public class GameController : MonoBehaviour {
 
 	public void LaunchWaiting()
 	{
+		Vector3 pos = Player.Instance.m_CurrentRoom.transform.position;
+		pos.z = Camera.main.transform.position.z;
+		Camera.main.transform.position = pos;
+
 		m_StateManager.SetState ((int)GAMESTATE.WAITING);
 		GetComponent<UIManager> ().DisplayMessengerText ("Incoming Info,\nAre You Ready?", StartFlash );
 	}
@@ -61,6 +65,9 @@ public class GameController : MonoBehaviour {
 	{
 
 		m_StateManager.SetState ((int)GAMESTATE.AITURN);
+		Vector3 pos = m_AIController.transform.position;
+		pos.z = Camera.main.transform.position.z;
+		Camera.main.transform.position = pos;
 		GetComponent<ActionController> ().ResetActions ();
 		m_AIController.TakeTurn ();
 		

@@ -26,7 +26,7 @@ public override void Interact (ActionController.ACTIONS action)
 	switch(action)
 	{
 	case ActionController.ACTIONS.EXAMINE:
-			GameController.Instance.FireDialogueCallBack("A big sturdy bed. \n Plenty of storage space underneath the bed too.", CheckContents);
+			GameController.Instance.FireDialogueCallBack("A big sturdy bed. \n Plenty of storage space underneath too.", CheckContents);
 		break;
 		
 		//if i find an item something new hey yoo la gorgeous bastard 101!!!!!!!

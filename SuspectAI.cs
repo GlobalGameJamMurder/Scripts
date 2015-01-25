@@ -43,6 +43,9 @@ public class SuspectAI : MonoBehaviour {
 			Debug.Log ("Moved to " + m_CurrentRoom.name);
 			transform.position = m_CurrentRoom.transform.position;
 			++count;
+			Vector3 pos = transform.position;
+			pos.z = Camera.main.transform.position.z;
+			Camera.main.transform.position = pos;
 
 			if(m_CurrentRoom == Player.Instance.m_CurrentRoom)
 			{
