@@ -9,8 +9,7 @@ public class ItemLookup: MonoBehaviour {
 	[System.Serializable]
 	public class Item{
 		public Sprite m_sprite;
-		public string m_Name;
-		public Texture m_Texture;
+		public string m_Name, m_FindDescription;
 		public bool m_OneUse;
 		[System.NonSerialized]
 		public bool m_InInventory = false;
