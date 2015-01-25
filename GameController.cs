@@ -158,8 +158,8 @@ public class GameController : MonoBehaviour {
 				case ActionController.ACTIONS.LISTENRADIUS:
 				case ActionController.ACTIONS.LOCKPICK:
 				case ActionController.ACTIONS.MOVE:
-				Debug.Log("ACION MOVE");
-					RoomManager.Instance.CurrentRoom.EnableDoors ();
+				Debug.Log("TEST");
+					
 				break;
 				case ActionController.ACTIONS.SAFECRACK:
 				case ActionController.ACTIONS.NONE:

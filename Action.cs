@@ -119,7 +119,7 @@ public class Action : MonoBehaviour {
 	}
 	void Move(GameObject useAgainst)
 	{
-
+		Debug.Log ("MOVE");
 	}
 	void SafeCrack(GameObject useAgainst)
 	{
