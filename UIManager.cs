@@ -23,7 +23,8 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-
+		timerText.enabled = false;
+		
         // Fill a list with dummy tiles
         for (int i = 0; i < 10; ++i)
         {
@@ -35,7 +36,7 @@ public class UIManager : MonoBehaviour
         // Debug
         //AddToInventory(item);
 
-        UpdateTimer(124);
+        //UpdateTimer();
     }
 
     // Toggles the slide action for the inventory
@@ -103,8 +104,14 @@ public class UIManager : MonoBehaviour
 		execute = true;
 	}
 
+	public void ShowTimer(bool show)
+	{
+		timerText.enabled = show;
+	}
+
 	public void OnDialogExit()
 	{
+		Time.timeScale = 1;
 		if (execute)
 		{
 			onClickAction();

@@ -18,14 +18,14 @@ public class Room : MonoBehaviour
 	public Image roomImage;
 	public Image roomBorderImage;
 
-	public Door BottomDoor1;
-	public Door BottomDoor2;
-	public Door TopDoor1;
-	public Door TopDoor2;
-	public Door LeftDoor1;
-	public Door LeftDoor2;
-	public Door RightDoor1;
-	public Door RightDoor2;
+	[SerializeField] private Door BottomDoor1;
+	[SerializeField] private Door BottomDoor2;
+	[SerializeField] private Door TopDoor1;
+	[SerializeField] private Door TopDoor2;
+	[SerializeField] private Door LeftDoor1;
+	[SerializeField] private Door LeftDoor2;
+	[SerializeField] private Door RightDoor1;
+	[SerializeField] private Door RightDoor2;
 
 	public int roomSizeX = 100;
 	public int roomSizeY = 100;
@@ -45,6 +45,8 @@ public class Room : MonoBehaviour
 	public ObjectSlot ObjectSlotBL;
 	public ObjectSlot ObjectSlotBC;
 	public ObjectSlot ObjectSlotBR;
+
+	private ObjectSlot[] Objects;
 	
 	public Text roomText; 
 
@@ -91,12 +93,9 @@ public class Room : MonoBehaviour
 		if (LeftDoor1.doorTo != null) {
 			roomImage.overrideSprite = inactiveImage;
 			LeftDoor1.doorTo.roomImage.overrideSprite = activeImage;
-			RoomManager.Instance.CurrentRoom = LeftDoor1.doorTo;
-			LeftDoor1.doorTo.EnableDoors();
+			Player.Instance.UseAction(LeftDoor1.doorTo);
 			DisableDoors();
-				}
-
-		GameController.Instance.UseAction (ActionController.ACTIONS.MOVE,this.gameObject);
+		}
 	}
 
 	public void DoorLeft2()
@@ -104,12 +103,11 @@ public class Room : MonoBehaviour
 		if (LeftDoor2.doorTo != null) {
 			roomImage.overrideSprite = inactiveImage;
 			LeftDoor2.doorTo.roomImage.overrideSprite = activeImage;
-			RoomManager.Instance.CurrentRoom = LeftDoor2.doorTo;
-			LeftDoor2.doorTo.EnableDoors();
+			Player.Instance.UseAction(LeftDoor2.doorTo);
 			DisableDoors();
 		}
-		
-		GameController.Instance.UseAction (ActionController.ACTIONS.MOVE,this.gameObject);
+	
+
 	}
 
 	public void DoorRight1()
@@ -117,12 +115,9 @@ public class Room : MonoBehaviour
 		if (RightDoor1.doorTo != null) {
 			roomImage.overrideSprite = inactiveImage;
 			RightDoor1.doorTo.roomImage.overrideSprite = activeImage;
-			RoomManager.Instance.CurrentRoom = RightDoor1.doorTo;
-			RightDoor1.doorTo.EnableDoors();
+			Player.Instance.UseAction(RightDoor1.doorTo );
 			DisableDoors();
-				}
-
-		GameController.Instance.UseAction (ActionController.ACTIONS.MOVE,this.gameObject);
+		}
 	}
 
 	public void DoorRight2()
@@ -130,25 +125,20 @@ public class Room : MonoBehaviour
 		if (RightDoor2.doorTo != null) {
 			roomImage.overrideSprite = inactiveImage;
 			RightDoor2.doorTo.roomImage.overrideSprite = activeImage;
-			RoomManager.Instance.CurrentRoom = RightDoor2.doorTo;
-			RightDoor2.doorTo.EnableDoors();
+			Player.Instance.UseAction(RightDoor2.doorTo);
 			DisableDoors();
 		}
-		
-		GameController.Instance.UseAction (ActionController.ACTIONS.MOVE,this.gameObject);
 	}
+	
 
 	public void DoorTop1()
 	{
 		if (TopDoor1.doorTo != null) {
 			roomImage.overrideSprite = inactiveImage;
 			TopDoor1.doorTo.roomImage.overrideSprite = activeImage;
-			RoomManager.Instance.CurrentRoom = TopDoor1.doorTo;
-			TopDoor1.doorTo.EnableDoors();
+			Player.Instance.UseAction(TopDoor1.doorTo );
 			DisableDoors();
-				}
-
-		GameController.Instance.UseAction (ActionController.ACTIONS.MOVE,this.gameObject);
+		}
 	}
 
 	public void DoorTop2()
@@ -156,25 +146,19 @@ public class Room : MonoBehaviour
 		if (TopDoor2.doorTo != null) {
 			roomImage.overrideSprite = inactiveImage;
 			TopDoor2.doorTo.roomImage.overrideSprite = activeImage;
-			RoomManager.Instance.CurrentRoom = TopDoor2.doorTo;
-			TopDoor2.doorTo.EnableDoors();
+			Player.Instance.UseAction(TopDoor2.doorTo);
 			DisableDoors();
 		}
-		
-		GameController.Instance.UseAction (ActionController.ACTIONS.MOVE,this.gameObject);
 	}
-	
+
 	public void DoorBottom2()
 	{
 		if (BottomDoor2.doorTo != null) {
 			roomImage.overrideSprite = inactiveImage;
 			BottomDoor2.doorTo.roomImage.overrideSprite = activeImage;
-			RoomManager.Instance.CurrentRoom = BottomDoor2.doorTo;
-			BottomDoor2.doorTo.EnableDoors();
+			Player.Instance.UseAction(BottomDoor2.doorTo );
 			DisableDoors();
-				}
-
-		GameController.Instance.UseAction (ActionController.ACTIONS.MOVE,this.gameObject);
+		}
 	}
 
 	public void DoorBottom1()
@@ -182,24 +166,33 @@ public class Room : MonoBehaviour
 		if (BottomDoor1.doorTo != null) {
 			roomImage.overrideSprite = inactiveImage;
 			BottomDoor1.doorTo.roomImage.overrideSprite = activeImage;
-			RoomManager.Instance.CurrentRoom = BottomDoor1.doorTo;
-			BottomDoor1.doorTo.EnableDoors();
+			Player.Instance.UseAction(BottomDoor1.doorTo );
 			DisableDoors();
-		}
-		
-		GameController.Instance.UseAction (ActionController.ACTIONS.MOVE,this.gameObject);
+			}
 	}
 
 	// Use this for initialization
 	void Start () {
 
-		if (RoomManager.Instance.CurrentRoom == this) {
+		if (Player.Instance.m_CurrentRoom == this) {
 						//EnableDoors ();
 			DisableDoors ();
             roomImage.overrideSprite = activeImage;
 				} else {
 			DisableDoors ();
 				}
+
+		Objects = new ObjectSlot[] {
+						ObjectSlotBC,
+						ObjectSlotBL,
+						ObjectSlotBR,
+						ObjectSlotCC,
+						ObjectSlotCL,
+						ObjectSlotCR,
+						ObjectSlotTC,
+						ObjectSlotTL,
+						ObjectSlotTR
+				};
 
 
 
@@ -218,7 +211,7 @@ public class Room : MonoBehaviour
 	public Room GetRandomRoom()
 	{
 		int count = 0;
-		while (count < 100)
+		while (++count < 100)
 		{
 			int rand = Random.Range (0,8);
 
@@ -244,7 +237,7 @@ public class Room : MonoBehaviour
 				}
 				break;
 			case 3:
-				if(BottomDoor1.door != null)
+				if(BottomDoor1.doorTo != null)
 				{
 					return BottomDoor1.doorTo;
 				}
@@ -268,7 +261,7 @@ public class Room : MonoBehaviour
 				}
 				break;
 			case 7:
-				if(BottomDoor2.door != null)
+				if(BottomDoor2.doorTo != null)
 				{
 					return BottomDoor2.doorTo;
 				}
@@ -349,5 +342,10 @@ public class Room : MonoBehaviour
 		RightDoor2.door.GetComponent<RectTransform> ().localPosition = 
 			new Vector3 ((roomSizeX / 2) + (doorRight2Rect.sizeDelta.y/2), Mathf.Clamp(RightDoor2.doorModifier,-(roomSizeY / 2) + (doorRight2Rect.sizeDelta.y/2) , (roomSizeY / 2) - (doorRight1Rect.sizeDelta.y/2)) , 0);
 
+	}
+
+	public ObjectSlot[] ObjectSlots
+	{
+		get {return Objects;}
 	}
 }

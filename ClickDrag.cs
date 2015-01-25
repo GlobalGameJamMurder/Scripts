@@ -25,7 +25,7 @@ public class ClickDrag : MonoBehaviour {
 		if (!Input.GetMouseButton(1)) return;
 
 		Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
-		Vector3 move = new Vector3(pos.x * dragSpeed, pos.y * dragSpeed, 0);
+		Vector3 move = new Vector3(-pos.x * dragSpeed, -pos.y * dragSpeed, 0);
 		
 		transform.Translate(move, Space.World);  
 

@@ -73,59 +73,11 @@ public class Action : MonoBehaviour {
 		}
 	}
 
-	public void OnUse(GameObject useAgainst)
+	public void SelectItem()
 	{
-		switch (m_ActionType)
-		{
-		case ActionController.ACTIONS.EXAMINE:
-			Examine(useAgainst);
-			break;
-		case ActionController.ACTIONS.LISTENDOOR:
-			Listen(useAgainst);
-			break;
-		case ActionController.ACTIONS.LISTENRADIUS:
-			Focus(useAgainst);
-			break;
-		case ActionController.ACTIONS.LOCKPICK:
-			Pick(useAgainst);
-			break;
-		case ActionController.ACTIONS.MOVE:
-			Move(useAgainst);
-			break;
-		case ActionController.ACTIONS.SAFECRACK:
-			SafeCrack(useAgainst);
-			break;
-		case ActionController.ACTIONS.NONE:
-			GameController.Instance.FireDialogue("Something Went Wrong in Action");
-			break;
-		}
+		Player.Instance.ActionTypeSelected (this);
 	}
 
-	void Examine(GameObject useAgainst)
-	{
-
-	}
-	void Listen(GameObject useAgainst)
-	{
-
-	}
-	void Focus (GameObject useAgainst)
-	{
-
-	}
-	void Pick(GameObject useAgainst)
-	{
-
-	}
-	void Move(GameObject useAgainst)
-	{
-		Debug.Log ("MOVE");
-	}
-	void SafeCrack(GameObject useAgainst)
-	{
-
-	}
-	
 	// Update is called once per frame
 	void Update () {
 	

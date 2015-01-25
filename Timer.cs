@@ -19,28 +19,24 @@ public class Timer : MonoBehaviour {
 		}
 	}
 
-	public void StartTimer(int time)
+	public void StartTimer(int time, System.Action onComplete, System.Func<float, GameController.GAMESTATE, bool> timeRemaining)
 	{
-		StartCoroutine(CountTime(time));
+		StartCoroutine(CountTime(time, onComplete, timeRemaining));
 	}
 
-	IEnumerator CountTime(int time)
+	IEnumerator CountTime(int time, System.Action onComplete, System.Func<float, GameController.GAMESTATE, bool> timeRemaining )
 	{
 		float endTime = Time.time + time;
+		GameController.GAMESTATE state = GameController.Instance.m_CurrentState;
 
 		while(Time.time < endTime)
 		{
+			if(!timeRemaining(endTime - Time.time, state))
+				yield break;
 			yield return null;
 		}
 
-		if(GameController.Instance.m_CurrentState == GameController.GAMESTATE.ACTIONSELECT)
-		{
-			GameController.Instance.SwitchState(GameController.GAMESTATE.ACTIONUSE);
-		}
-		else if(GameController.Instance.m_CurrentState == GameController.GAMESTATE.ACTIONUSE)
-		{
-			GameController.Instance.SwitchState(GameController.GAMESTATE.AITURN);
-		}
+		onComplete ();
 	}
 	
 	// Update is called once per frame
