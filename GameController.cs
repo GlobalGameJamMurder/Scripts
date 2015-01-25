@@ -31,6 +31,22 @@ public class GameController : MonoBehaviour {
 		{
 			s_Instance = this;
 		}
+
+		GetComponent<UIManager> ().DisplayMessengerText ("Incoming Info,\nAre You Ready?", StartFlash );
+	}
+
+	public void StartFlash()
+	{
+		StartCoroutine (Flash ());
+	}
+
+	private IEnumerator Flash()
+	{
+		GetComponent<StateManager> ().blackScreen.gameObject.SetActive (true);
+		GetComponent<StateManager> ().SetState (1);
+		yield return new WaitForSeconds (1.5f);
+		GetComponent<StateManager> ().SetState (0);
+		GetComponent<StateManager> ().blackScreen.gameObject.SetActive (false);
 	}
 
 	public int GetWaitTime
@@ -108,6 +124,6 @@ public class GameController : MonoBehaviour {
 
 	public void FireDialogue(string text)
 	{
-		//Call the UI function.
+		GetComponent<UIManager> ().DisplayMessengerText (text);
 	}
 }
