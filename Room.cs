@@ -18,14 +18,14 @@ public class Room : MonoBehaviour
 	public Image roomImage;
 	public Image roomBorderImage;
 
-	public Door BottomDoor1;
-	public Door BottomDoor2;
-	public Door TopDoor1;
-	public Door TopDoor2;
-	public Door LeftDoor1;
-	public Door LeftDoor2;
-	public Door RightDoor1;
-	public Door RightDoor2;
+	[SerializeField] private Door BottomDoor1;
+	[SerializeField] private Door BottomDoor2;
+	[SerializeField] private Door TopDoor1;
+	[SerializeField] private Door TopDoor2;
+	[SerializeField] private Door LeftDoor1;
+	[SerializeField] private Door LeftDoor2;
+	[SerializeField] private Door RightDoor1;
+	[SerializeField] private Door RightDoor2;
 
 	public int roomSizeX = 100;
 	public int roomSizeY = 100;
@@ -90,124 +90,85 @@ public class Room : MonoBehaviour
 
 	public void DoorLeft1()
 	{
-		if(	Player.m_CurrentSelectedAction != null && Player.m_CurrentSelectedAction.m_ActionType == ActionController.ACTIONS.MOVE){
 		if (LeftDoor1.doorTo != null) {
 			roomImage.overrideSprite = inactiveImage;
 			LeftDoor1.doorTo.roomImage.overrideSprite = activeImage;
-			Player.Instance.m_CurrentRoom = LeftDoor1.doorTo;
-			Player.Instance.UseAction(this);
-			LeftDoor1.doorTo.EnableDoors();
+			Player.Instance.UseAction(LeftDoor1.doorTo);
 			DisableDoors();
-		}}
-	else 
-		DisableDoors();
-	
-}
+		}
+	}
 
 	public void DoorLeft2()
 	{
-		if(	Player.m_CurrentSelectedAction != null && Player.m_CurrentSelectedAction.m_ActionType == ActionController.ACTIONS.MOVE){
 		if (LeftDoor2.doorTo != null) {
 			roomImage.overrideSprite = inactiveImage;
 			LeftDoor2.doorTo.roomImage.overrideSprite = activeImage;
-			Player.Instance.m_CurrentRoom = LeftDoor2.doorTo;
-			LeftDoor2.doorTo.EnableDoors();
+			Player.Instance.UseAction(LeftDoor2.doorTo);
 			DisableDoors();
-		}}
-	else 
-		DisableDoors();
+		}
 	
 
 	}
 
 	public void DoorRight1()
 	{
-		if(	Player.m_CurrentSelectedAction != null && Player.m_CurrentSelectedAction.m_ActionType == ActionController.ACTIONS.MOVE){
 		if (RightDoor1.doorTo != null) {
 			roomImage.overrideSprite = inactiveImage;
 			RightDoor1.doorTo.roomImage.overrideSprite = activeImage;
-			Player.Instance.m_CurrentRoom = RightDoor1.doorTo;
-			RightDoor1.doorTo.EnableDoors();
+			Player.Instance.UseAction(RightDoor1.doorTo );
 			DisableDoors();
-		}}
-	else 
-		DisableDoors();
-	
-}
+		}
+	}
 
 	public void DoorRight2()
 	{
-		if(	Player.m_CurrentSelectedAction != null && Player.m_CurrentSelectedAction.m_ActionType == ActionController.ACTIONS.MOVE){
 		if (RightDoor2.doorTo != null) {
 			roomImage.overrideSprite = inactiveImage;
 			RightDoor2.doorTo.roomImage.overrideSprite = activeImage;
-			Player.Instance.m_CurrentRoom = RightDoor2.doorTo;
-			RightDoor2.doorTo.EnableDoors();
+			Player.Instance.UseAction(RightDoor2.doorTo);
 			DisableDoors();
-		}}
-	else 
-		DisableDoors();
+		}
+	}
 	
-}
 
 	public void DoorTop1()
 	{
-		if(	Player.m_CurrentSelectedAction != null && Player.m_CurrentSelectedAction.m_ActionType == ActionController.ACTIONS.MOVE){
 		if (TopDoor1.doorTo != null) {
 			roomImage.overrideSprite = inactiveImage;
 			TopDoor1.doorTo.roomImage.overrideSprite = activeImage;
-			Player.Instance.m_CurrentRoom = TopDoor1.doorTo;
-			TopDoor1.doorTo.EnableDoors();
+			Player.Instance.UseAction(TopDoor1.doorTo );
 			DisableDoors();
-		}}
-		else 
-		DisableDoors();
-	
-}
+		}
+	}
 
 	public void DoorTop2()
 	{
-		if(	Player.m_CurrentSelectedAction != null && Player.m_CurrentSelectedAction.m_ActionType == ActionController.ACTIONS.MOVE){
 		if (TopDoor2.doorTo != null) {
 			roomImage.overrideSprite = inactiveImage;
 			TopDoor2.doorTo.roomImage.overrideSprite = activeImage;
-			Player.Instance.m_CurrentRoom = TopDoor2.doorTo;
-			TopDoor2.doorTo.EnableDoors();
+			Player.Instance.UseAction(TopDoor2.doorTo);
 			DisableDoors();
-		}}
-		else 
-		DisableDoors();
-	
-}
-	
+		}
+	}
+
 	public void DoorBottom2()
 	{
-		if(	Player.m_CurrentSelectedAction != null && Player.m_CurrentSelectedAction.m_ActionType == ActionController.ACTIONS.MOVE){
 		if (BottomDoor2.doorTo != null) {
 			roomImage.overrideSprite = inactiveImage;
 			BottomDoor2.doorTo.roomImage.overrideSprite = activeImage;
-			Player.Instance.m_CurrentRoom = BottomDoor2.doorTo;
-			BottomDoor2.doorTo.EnableDoors();
+			Player.Instance.UseAction(BottomDoor2.doorTo );
 			DisableDoors();
-		}}
-		else 
-		DisableDoors();
-	
-}
+		}
+	}
 
 	public void DoorBottom1()
 	{
-		if(	Player.m_CurrentSelectedAction != null && Player.m_CurrentSelectedAction.m_ActionType == ActionController.ACTIONS.MOVE){
 		if (BottomDoor1.doorTo != null) {
 			roomImage.overrideSprite = inactiveImage;
 			BottomDoor1.doorTo.roomImage.overrideSprite = activeImage;
-			Player.Instance.m_CurrentRoom = BottomDoor1.doorTo;
-			BottomDoor1.doorTo.EnableDoors();
+			Player.Instance.UseAction(BottomDoor1.doorTo );
 			DisableDoors();
-			}}
-		else 
-			DisableDoors();
-
+			}
 	}
 
 	// Use this for initialization

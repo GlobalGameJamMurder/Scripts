@@ -133,6 +133,7 @@ public class GameController : MonoBehaviour {
 	
 	public void FireDialogue(string text)
 	{
+		Time.timeScale = 0;
 		GetComponent<UIManager> ().DisplayMessengerText (text);
 	}
 }

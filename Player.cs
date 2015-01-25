@@ -40,7 +40,7 @@ public class Player : MonoBehaviour {
 			ActionController.ACTIONS actionType = m_ActionCont.m_QueuedActions[index].m_ActionType;
 			for (int i = 0 ; i < objectSlots.Length ; ++i)
 			{
-				if(objectSlots[i].m_Object.m_PossibleActions.Contains(actionType))
+				if(objectSlots[i].m_Object != null && objectSlots[i].m_Object.m_PossibleActions.Contains(actionType))
 				{
 					m_ActionCont.m_QueuedActions[index].GetComponent<Button>().enabled = true;
 					break;
@@ -93,11 +93,14 @@ public class Player : MonoBehaviour {
 
 	public bool UseAction(Room obj)
 	{
-		if(m_CurrentSelectedAction != null)
+		if(m_CurrentSelectedAction != null && m_CurrentSelectedAction.m_ActionType == ActionController.ACTIONS.MOVE)
 		{
 			m_ActionCont.RemoveItemActions (m_CurrentSelectedAction);
 			m_CurrentSelectedAction = null;
+			m_CurrentRoom = obj;
 			m_CurrentRoom.DisableDoors();
+			CheckActions();
+			
 			return true;
 		}
 		return false;

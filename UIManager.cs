@@ -111,6 +111,7 @@ public class UIManager : MonoBehaviour
 
 	public void OnDialogExit()
 	{
+		Time.timeScale = 1;
 		if (execute)
 		{
 			onClickAction();
