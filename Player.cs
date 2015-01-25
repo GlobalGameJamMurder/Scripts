@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Player : MonoBehaviour {
+
 	[SerializeField]ActionController m_ActionCont;
-	[SerializeField]Room m_CurrentRoom; //Serializable so the start room can be set
+	public Room m_CurrentRoom; //Serializable so the start room can be set
 	private static Player m_Instance = null;
-	private static ActionController.ACTIONS m_CurrentSelectedAction = ActionController.ACTIONS.NONE;
+	public static Action m_CurrentSelectedAction = null;
 	//private static Object? m_CurrentSelectedObject;
 
 	public 
@@ -31,114 +33,73 @@ public class Player : MonoBehaviour {
 	//When the action usage faze starts or a room is entered this function should be called
 	public void CheckActions()
 	{
-		GameObject[] ObjectsInRoom = new GameObject[12];// = m_CurrentRoom.GetObjects();
-		GameObject[] DoorsInRoom = new GameObject[12];// = m_CurrentRoom.GetDoors();
-		for (int i = 0; i < m_ActionCont.m_QueuedActions.Count; i++) 
-		{
-			bool ButtonEnabled = false;
-			switch (m_ActionCont.m_QueuedActions[i].m_ActionType)
+		ObjectSlot[] objectSlots = m_CurrentRoom.ObjectSlots;
+
+		for (int index = 0 ; index < m_ActionCont.m_QueuedActions.Count ; ++index)
+	    {
+			ActionController.ACTIONS actionType = m_ActionCont.m_QueuedActions[index].m_ActionType;
+			for (int i = 0 ; i < objectSlots.Length ; ++i)
 			{
-			case ActionController.ACTIONS.EXAMINE:
-				for(int j = 0; j < ObjectsInRoom.Length; i++)
+				if(objectSlots[i].m_Object.m_PossibleActions.Contains(actionType))
 				{
-					//switch case Object types
-					//if an object is found that can be examined then
-					ButtonEnabled = true;
+					m_ActionCont.m_QueuedActions[index].GetComponent<Button>().enabled = true;
+					break;
 				}
-				break;
-			case ActionController.ACTIONS.LOCKPICK:
-				for(int j = 0; j < DoorsInRoom.Length; i++)
+
+				if(i >= objectSlots.Length-1)
 				{
-					//if an door is found that can be unlocked then
-					ButtonEnabled = true;
+					m_ActionCont.m_QueuedActions[index].GetComponent<Button>().enabled = false;
 				}
-				break;
-			case ActionController.ACTIONS.SAFECRACK:
-				for(int j = 0; j < ObjectsInRoom.Length; i++)
-				{
-					//if a locked safe is found then
-					ButtonEnabled = true;
-				}
-				break;
-			case ActionController.ACTIONS.LISTENDOOR:
-			case ActionController.ACTIONS.LISTENRADIUS:
-			case ActionController.ACTIONS.MOVE:
-				//I am going to assume there will always be doors
-				ButtonEnabled = true;
-				break;
-			case ActionController.ACTIONS.NONE:
-				Debug.LogError("Queued action is set to NONE");
-				break;
-			}
-			if(ButtonEnabled)
-			{
-				//should change this to enabling collider or button comp
-				m_ActionCont.m_QueueButtons[i].SetActive(true);
-				//colour button normally
-			}
-			else
-			{
-				//should change this to disabling collider or button comp
-				m_ActionCont.m_QueueButtons[i].SetActive(false);
-				//gray out button
+
 			}
 		}
-
 	}
 
 	//this funtion will be called by a actiontype button call back
-	public void ActionTypeSelected(int EnumID)
+	public void ActionTypeSelected(Action action)
 	{
-		m_CurrentSelectedAction = (ActionController.ACTIONS)EnumID;
-		switch (m_CurrentSelectedAction)
+		ObjectSlot[] objectSlots = m_CurrentRoom.ObjectSlots;
+
+		for (int i = 0 ; i < objectSlots.Length ; ++i)
 		{
-			//activate as in allow the player to click on it
-			//m_CurrentRoom.getObjects?
-			//m_CurrentRoom.getDoors?
-		case ActionController.ACTIONS.EXAMINE:
-			//light/activate? container objects
-			break;
-		case ActionController.ACTIONS.LISTENDOOR:
-			//light/activate? doors
-			break;
-		case ActionController.ACTIONS.LISTENRADIUS:
-			//m_CurrentSelectedObject = gameObject;
-			UseAction();//use the action straight away
-			break;
-		case ActionController.ACTIONS.LOCKPICK:
-			//light/activate? doors
-			break;
-		case ActionController.ACTIONS.MOVE:
-			//light/activate? doors
-			break;
-		case ActionController.ACTIONS.SAFECRACK:
-			//light/activate? the safe or maybe just safe crack it instantly.
-			break;
-		case ActionController.ACTIONS.NONE:
-			GameController.Instance.FireDialogue("Something Went Wrong in Action");
-			break;
+			if(objectSlots[i].m_Object != null)
+				objectSlots[i].enabled = objectSlots[i].m_Object.m_PossibleActions.Contains(action.m_ActionType);
+		}
+
+		m_CurrentSelectedAction = action;
+
+		if(action.m_ActionType == ActionController.ACTIONS.MOVE)
+		{
+			m_CurrentRoom.EnableDoors();
+		}
+		else 
+		{
+			m_CurrentRoom.DisableDoors();
 		}
 
 	}
 
-	public bool UseAction()
+	public bool UseAction(ObjectClass obj)
 	{
-		//m_ActionCont.UseAction(GetAction(m_CurrentSelectedAction), m_CurrentSelectedObject);
-		m_CurrentSelectedAction = ActionController.ACTIONS.NONE;
-		return true;
+		if(m_CurrentSelectedAction != null)
+		{
+			obj.Interact (m_CurrentSelectedAction.m_ActionType);
+			m_ActionCont.RemoveItemActions (m_CurrentSelectedAction);
+			m_CurrentSelectedAction = null;
+			return true;
+		}
+		return false;
 	}
 
-	//this funtion will be called by a object button call back
-	public void ObjectSelected(GameObject selectecObject)
+	public bool UseAction(Room obj)
 	{
-		//m_CurrentSelectedObject = selectedObject;
-		//check compatibility with action?
-		UseAction ();
-	}
-
-	public void MoveRoom(Room newRoom)
-	{
-		//check actions called here?
-		m_CurrentRoom = newRoom;
+		if(m_CurrentSelectedAction != null)
+		{
+			m_ActionCont.RemoveItemActions (m_CurrentSelectedAction);
+			m_CurrentSelectedAction = null;
+			m_CurrentRoom.DisableDoors();
+			return true;
+		}
+		return false;
 	}
 }

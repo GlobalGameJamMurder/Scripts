@@ -3,9 +3,12 @@ using System.Collections;
 
 public class ObjectSlot : MonoBehaviour {
 
+	public ObjectClass m_Object;
+
 	// Use this for initialization
-	void Start () {
-	
+	void Interact (ActionController.ACTIONS action) 
+	{
+		
 	}
 	
 	// Update is called once per frame

@@ -84,12 +84,20 @@ public class StateManager : MonoBehaviour {
 		{
 			m_ActionTriggerButtons[i].SetActive(true);
 			m_ActionTriggerButtons[i].GetComponent<Action>().SetAction(actionController.m_QueuedActions[i].m_ActionType);
-			Text text = m_ActionTriggerButtons[i].GetComponentInChildren<Text>();
 
 			m_ActionTriggerButtons[i].GetComponentInChildren<Text>().text = actionController.m_QueuedActions[i].m_Title;
 			//m_ActionTriggerButtons[i] = m_ActionTriggerButtons[i].GetComponent<Action>();
 		}
 
+	}
+
+
+	public void ResetActions()
+	{
+		for(int i = 0 ; i < m_ActionTriggerButtons.Length ; ++i)
+		{
+			m_ActionTriggerButtons[i].SetActive(false);
+		}
 	}
 
 	// Use this for initialization
