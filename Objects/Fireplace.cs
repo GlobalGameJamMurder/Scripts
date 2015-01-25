@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine;
 using System.Collections;
 public class Fireplace : ObjectClass {
 	
@@ -14,7 +13,7 @@ public class Fireplace : ObjectClass {
 		switch(action)
 		{
 		case ActionController.ACTIONS.EXAMINE:
-			GameController.Instance.FireDialogue("This fire was lit recently. \nSomeone could have tried burning something.);
+			GameController.Instance.FireDialogue("This fire was lit recently. \nSomeone could have tried burning something.");
 			break;
 			
 			//if i find an item something new hey yoo la gorgeous bastard 101!!!!!!!

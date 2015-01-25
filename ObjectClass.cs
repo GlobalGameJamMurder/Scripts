@@ -28,4 +28,12 @@ public class ObjectClass : MonoBehaviour {
 	{
 		
 	}
+
+	public void CheckContents()
+	{
+		if(m_Items.Count > 0)
+		{
+
+		}
+	}
 }
