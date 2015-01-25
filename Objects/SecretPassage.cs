@@ -6,6 +6,7 @@ public class SecretPassage : ObjectClass {
 		m_PossibleActions.Add (ActionController.ACTIONS.EXAMINE);
 		m_PossibleActions.Add (ActionController.ACTIONS.SAFECRACK);
 		m_PossibleActions.Add (ActionController.ACTIONS.LOCKPICK);
+		m_StartFinished = true;
 	}
 	
 	public override void Interact (ActionController.ACTIONS action) 

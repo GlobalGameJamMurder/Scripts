@@ -13,6 +13,7 @@ public class ToiletCistern : ObjectClass {
 		m_PossibleItems.Add (6);
 		m_PossibleItems.Add (8);
 		m_PossibleItems.Add (9);
+		m_StartFinished = true;
 	}
 	
 	public override void Interact (ActionController.ACTIONS action) 
