@@ -11,7 +11,7 @@ public class GameController : MonoBehaviour {
 	public static GameController s_Instance;
 
 	public SuspectAI m_AIController;
-	private StateManager m_StateManager;
+	public StateManager m_StateManager;
 
 	public GAMESTATE m_CurrentState;
 
@@ -135,5 +135,11 @@ public class GameController : MonoBehaviour {
 	{
 		Time.timeScale = 0;
 		GetComponent<UIManager> ().DisplayMessengerText (text);
+	}
+
+	public void FireDialogueCallBack(string text, System.Action onFinish)
+	{
+		Time.timeScale = 0;
+		GetComponent<UIManager> ().DisplayMessengerText(text, onFinish);
 	}
 }

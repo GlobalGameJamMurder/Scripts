@@ -45,7 +45,8 @@ public class StateManager : MonoBehaviour {
 		m_AbilitySelectScreen.SetActive(true);
 	}
 
-	IEnumerator FadeScenes(System.Action Foo)
+
+	IEnumerator FadeScenes(System.Action Foo, bool triggerEnd = false)
 	{
 		blackScreen.gameObject.SetActive (true);
 		Color color = blackScreen.color;
@@ -57,9 +58,10 @@ public class StateManager : MonoBehaviour {
 			blackScreen.color = color;
 			yield return null;
 		}
-
-		Foo ();
-
+		if (!triggerEnd) {
+						Foo ();
+				}
+		
 		endtime = Time.time + 0.5f;
 		while (Time.time < endtime)
 		{
@@ -70,7 +72,14 @@ public class StateManager : MonoBehaviour {
 		}
 		
 		blackScreen.gameObject.SetActive (false);
+		if (triggerEnd) {
+			Foo ();
+		}
 	}
+	public void StartFade(System.Action Foo, bool end =false)
+	{
+		StartCoroutine (FadeScenes(Foo,end));
+		}
 
 	void TransferActions()
 	{

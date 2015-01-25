@@ -91,6 +91,24 @@ public class Player : MonoBehaviour {
 		return false;
 	}
 
+	public void GameOver()
+	{
+		
+		GameController.Instance.FireDialogueCallBack("GAME OVER",BackToMainMenu);
+		GameController.Instance.m_StateManager.m_GameScreen.SetActive(false);
+		GameController.Instance.m_StateManager.m_AbilitySelectScreen.SetActive(false);
+
+		for (int i = 0; i < GameController.Instance.m_StateManager.m_ActionTriggerButtons.Length; i++) {
+			GameController.Instance.m_StateManager.m_ActionTriggerButtons[i].SetActive (false);
+				}
+		//StartCoroutine (Flash ());
+	}
+	
+	public void BackToMainMenu()
+	{
+		Application.LoadLevel ("MainMenu");
+	}
+
 	public bool UseAction(Room obj)
 	{
 		if(m_CurrentSelectedAction != null && m_CurrentSelectedAction.m_ActionType == ActionController.ACTIONS.MOVE)
@@ -100,7 +118,12 @@ public class Player : MonoBehaviour {
 			m_CurrentRoom = obj;
 			m_CurrentRoom.DisableDoors();
 			CheckActions();
-			
+
+			if(GameController.Instance.m_AIController.m_CurrentRoom == Player.Instance.m_CurrentRoom)
+			{
+				GameController.Instance.m_StateManager.StartFade(GameOver, true);
+				
+			}
 			return true;
 		}
 		return false;

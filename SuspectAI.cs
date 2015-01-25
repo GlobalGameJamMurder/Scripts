@@ -46,7 +46,8 @@ public class SuspectAI : MonoBehaviour {
 
 			if(m_CurrentRoom == Player.Instance.m_CurrentRoom)
 			{
-				//GameOver
+				GameController.Instance.m_StateManager.StartFade(GameOver, true);
+
 			}
 		}
 
@@ -56,6 +57,19 @@ public class SuspectAI : MonoBehaviour {
 
 	}
 
+	public void GameOver()
+	{
+
+		GameController.Instance.FireDialogueCallBack("GAME OVER",BackToMainMenu);
+		GameController.Instance.m_StateManager.m_GameScreen.SetActive(false);
+		GameController.Instance.m_StateManager.m_AbilitySelectScreen.SetActive(false);
+		//StartCoroutine (Flash ());
+	}
+
+	public void BackToMainMenu()
+	{
+		Application.LoadLevel ("MainMenu");
+	}
 	// Update is called once per frame
 	void Start () {
 		transform.position = m_CurrentRoom.transform.position;
