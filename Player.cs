@@ -102,6 +102,16 @@ public class Player : MonoBehaviour {
 		return false;
 	}
 
+    public void Victory()
+    {
+        GameController.Instance.FireDialogueCallBack("Congratulations!\n You escaped with the evidence!", BackToMainMenu);
+        GameController.Instance.m_StateManager.m_GameScreen.SetActive(false);
+        GameController.Instance.m_StateManager.m_AbilitySelectScreen.SetActive(false);
+
+        for (int i = 0; i < GameController.Instance.m_StateManager.m_ActionTriggerButtons.Length; i++)
+            GameController.Instance.m_StateManager.m_ActionTriggerButtons[i].SetActive(false);
+    }
+
 	public void GameOver()
 	{
 		
@@ -109,9 +119,8 @@ public class Player : MonoBehaviour {
 		GameController.Instance.m_StateManager.m_GameScreen.SetActive(false);
 		GameController.Instance.m_StateManager.m_AbilitySelectScreen.SetActive(false);
 
-		for (int i = 0; i < GameController.Instance.m_StateManager.m_ActionTriggerButtons.Length; i++) {
+		for (int i = 0; i < GameController.Instance.m_StateManager.m_ActionTriggerButtons.Length; i++) 
 			GameController.Instance.m_StateManager.m_ActionTriggerButtons[i].SetActive (false);
-				}
 		//StartCoroutine (Flash ());
 	}
 	
@@ -148,7 +157,7 @@ public class Player : MonoBehaviour {
 			}
 			else
 			{
-				GameController.Instance.FireDialogue("All is quite on the other side of the door.");
+				GameController.Instance.FireDialogue("All is quiet on the other side of the door.");
 			}
 
 			m_CurrentRoom.DisableDoors();
